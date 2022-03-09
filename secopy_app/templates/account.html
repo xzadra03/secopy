@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE HTML>
+<html>
+   <head>
+      <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
+      <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}">
+      <link rel="stylesheet" type="text/css" href="{% static 'css/custom_css.css'%}">
+      <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+      <script src="{% static 'js/bootstrap.js' %}"></script>
+      <script src="{% static 'js/custom_js.js' %}"></script>
+      <title>SeCoPy</title>
+   </head>
+
+   <body style="background-color:#eeeeee;">
+    <div class="jumbotron jumbotron-fluid" style="margin-bottom:0px; background-color: #555; color: white;"> 
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+            <h1 class="display-4">SeCoPy</h1>
+            <p class="lead">Secure Coding in Python</p>
+          </div>
+          {% if request.user.is_authenticated %}
+            <p>Hello, {{ user }}</p>
+            <form action="logout/" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-dark" style="color:black;">Logout</button>
+            </form>
+            <input type="button" onclick="location.href='../'" class="btn btn-dark" style="color:black;" value="Back" />
+          {% else %}
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" style="text-align: right;">
+              <button type="button" onclick="location.href='/login'" class="btn btn-dark" style="color:black;">Login</button>
+              <button type="button" onclick="location.href='/register'" class="btn btn-dark" style="color:black;">Register</button>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+<footer class="bg-light text-center text-lg-start" style="padding-top:30px;">
+    <div class="text-center p-3" style="background-color: #555; padding-top:30px; padding-bottom:25px; color:white;">
+      ©2022 BUT FIT
+    </div>
+  </footer>
+</body>
+</html>
