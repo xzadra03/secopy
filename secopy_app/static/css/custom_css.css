@@ -1,0 +1,17 @@
+.padding_radio{
+  padding-left: 15px;
+}
+
+.th_color{
+  color:white;
+  background-color: #777;
+}
+
+label{
+  width: 80%;
+}
+
+img{
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
