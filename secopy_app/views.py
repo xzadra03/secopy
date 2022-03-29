@@ -9,8 +9,14 @@ from django.contrib import messages
 # Create your views here.
 # request handler
 
-def results(request):
-    return render(request, 'results.html')
+def theory(request):
+    return render(request, 'theory.html')
+
+def test(request):
+    return render(request, 'test.html')
+
+def download(request):
+    return render(request, 'downloads.html')
 
 def intro(request):
     return render(request, 'index.html')

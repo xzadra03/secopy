@@ -69,3 +69,11 @@ function storePoints(points){
     s_points = points;
     document.getElementById("points").innerHTML = s_points;
 }
+
+
+function seeRightAnswers(){
+    const collection = document.getElementsByClassName("right");
+    for (let i = 0; i < collection.length; i++) {
+    collection[i].style.backgroundColor = "lightgreen";
+    }
+}

@@ -1,0 +1,88 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/custom_css.css'%}">
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="{% static 'js/bootstrap.js' %}"></script>
+        <script src="{% static 'js/custom_js.js' %}"></script>
+        <title>SeCoPy</title>
+    </head>
+
+    <body>
+        <div class="jumbotron jumbotron-fluid" style="margin-bottom:0px; background-color: #555; color: white;"> 
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                        <h1 class="display-4">SeCoPy</h1>
+                        <p class="lead">Secure Coding in Python</p>
+                    </div>
+                    {% if request.user.is_authenticated %}
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" style="text-align: right;">
+                        <p>Hello, {{ user }}</p>
+                        <form action="logout/" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-dark" style="color:black;">Logout</button>
+                        </form>
+                    </div>
+                    {% else %}
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" style="text-align: right;">
+                            <button type="button" onclick="location.href='/login'" class="btn btn-dark" style="color:black;">Login</button>
+                            <button type="button" onclick="location.href='/register'" class="btn btn-dark" style="color:black;">Register</button>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    
+        <div class="container mt-0">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="flex-shrink-0 p-3 bg-white">
+                        <ul class="list-unstyled ps-0">
+                            <button onclick="location.href='../'" class="btn btn-toggle align-items-center rounded" style="background-color:#cccccc; width:85%; height:50px; color:black;">
+                                Home
+                            </button>
+                            <li class="mb-1">
+                                <button onclick="location.href='../theory'" class="btn btn-toggle align-items-center rounded collapsed" data-toggle="collapse" data-target=".theory" style="background-color:#cccccc; width:85%; height:50px; color:black;">
+                                    Theory
+                                </button>
+                                <div class="theory" id="theory-collapse">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                        <li><a href="../theory#basics"><button type="button" class="btn btn-dark" style="width:85%; color:black;">Basics</button></a></li>
+                                        <li><a href="../theory#standard_lib"><button type="button" class="btn btn-dark" style="width:85%; color:black;">Standard library</button></a></li>
+                                        <li><a href="../theory#web_program"><button type="button" class="btn btn-dark" style="width:85%; color:black;">Web programming</button></a></li>
+                                        <li><a href="../theory#others"><button type="button" class="btn btn-dark" style="width:85%; color:black;">Others</button></a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="mb-1">
+                                <button onclick="location.href='../test'" class="btn btn-toggle align-items-center rounded collased" data-toggle="collapse" data-target=".tests" style="background-color:#cccccc; width:85%; height:50px; color:black;">
+                                    Test
+                                </button>
+                                <div class="tests" id="test-collapse">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                        <li><a href="../test#basics_test"><button type="button" class="btn btn-dark" style="width:85%; color:black;">Basics</button></a></li>
+                                        <li><a href="../test#standard_test"><button type="button" class="btn btn-dark" style="width:85%; color:black;">Standard library</button></a></li>
+                                        <li><a href="../test#web_test"><button type="button" class="btn btn-dark" style="width:85%; color:black;">Web programming</button></a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="mb-1">
+                                <button onclick="location.href='../downloads'" class="btn btn-toggle align-items-center rounded" style="color:black; background-color:#cccccc; width:85%; height:50px">
+                                    Files
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                {% block content %}{% endblock content %}
+        {% comment %} These two divs have to be in contents of other templates because of footer
+        </div>
+        </div> 
+        {% endcomment %}
+    </body>
+</html>

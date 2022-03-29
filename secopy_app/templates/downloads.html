@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8" id="files">
+    <h3>Files to download:</h3>
+    <ul>
+      <li>Example wrong import: <a href="../static/files/import_override.py" download>link</a></li>
+      <li>Example typosquatting: <a href="../static/files/modules.zip" download>link</a></li>
+      <li>Example input validation: <a href="../static/files/input.py" download>link</a></li>
+      <li>Example creating file: <a href="../static/files/file.py">link</a></li>
+      <li>Example command injection: <a href="../static/files/command_inj.py">link</a></li>
+    </ul>
+  </div>
+
+</div>
+</div>
+
+<footer style="position:fixed; bottom:0; width: 100%; padding-top:30px;">
+  <div class="text-center p-3" style="background-color: #555; padding-top:30px; padding-bottom:30px; color:white;">
+      ©2022 BUT FIT
+  </div>
+</footer>
+{% endblock content %}

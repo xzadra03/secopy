@@ -1,0 +1,576 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 tests" id="tests">
+    <h2>Test:</h2>
+    <p>This part of application is focused on revision of your knowledge. In every topic there will be 5 questions.
+      If your answer is correct one point will be awarded. There are maximum of 15 points. In regards of your results there is a scale
+      of knowledge by points rewarded.
+    </p>
+    <ul>
+      <li>15 - 12 => you can code securely</li>
+      <li>11 -  8 => you know what is secure coding</li>
+      <li> 7 -  4 => try reading guidelines again</li>
+      <li> 4 -  0 => secure coding is not your thing</li>
+    </ul>
+    Try perform the test without opening guidelines. There will be no restriction, but this test is for testing your knowledge and
+    understanding the concern.
+
+    <h3 id="basics_test">Basics</h3>
+    <!-- Question 1 -->
+    <table class="table table-bordered">
+      <tr>
+        <th class="th_color">Question 1: What is the recommended Python version?</th>
+      </tr>
+    </table>
+    <form style="padding-bottom:30px;">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 right">
+          <input type="radio" id="310" name="version_Python" value="3.10.0">
+          <label for="310">3.10.0</label>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="27" name="version_Python" value="2.7">
+          <label for="27">2.7</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="30" name="version_Python" value="3.0">
+          <label for="30">3.0</label>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="38" name="version_Python" value="3.8">
+          <label for="38">3.8</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <input type="radio" id="idk1" name="version_Python" value="idk" checked>
+          <label for="idk1">I do not know</label>
+        </div>
+      </div>
+    </form>
+
+    <!-- Question 2 -->
+    <table class="table table-bordered">
+      <tr>
+        <th class="th_color">Question 2: Why is recommended using venv (virtual environment)?</th>
+      </tr>
+    </table>
+    <form style="padding-bottom:30px;">
+      <div class="row">
+        <div class="col-12 padding_radio">
+          <input type="radio" id="venv_1" name="venv" value="a">
+          <label for="venv_1">Because faster Python interpretation of code.</label>
+        </div>
+        <div class="col-12 right padding_radio">
+          <input type="radio" id="venv_2" name="venv" value="b">
+          <label for="venv_2">Because potentionally malicious code would effect only this project in venv.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 padding_radio">
+          <input type="radio" id="venv_3" name="venv" value="c">
+          <label for="venv_3">Because venv prevents from code injection from input.</label>
+        </div>
+        <div class="col-12 padding_radio">
+          <input type="radio" id="venv_4" name="venv" value="d">
+          <label for="venv_4">Because project cannot be created without venv.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <input type="radio" id="idk2" name="venv" value="idk" checked>
+          <label for="idk2">I do not know</label>
+        </div>
+      </div>
+    </form>
+
+    <!-- Question 3 -->
+    <table class="table table-bordered">
+      <tr>
+        <th class="th_color">Question 3: What kind of module import is this?</th>
+      </tr>
+      <tr>
+        <td class="text-center"><img src="../static/images/absolute.png"></td>
+      </tr>
+    </table>
+    <form style="padding-bottom:30px;">
+      <div class="row">
+        <div class="col-xs-12 right col-sm-6">
+          <input type="radio" id="imp_1" name="import" value="a">
+          <label for="imp_1">Absolute</label>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="imp_2" name="import" value="b">
+          <label for="imp_2">Relative</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="imp_3" name="import" value="c">
+          <label for="imp_3">Implicit</label>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="imp_4" name="import" value="d">
+          <label for="imp_4">Explicit</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <input type="radio" id="idk3" name="import" value="idk" checked>
+          <label for="idk3">I do not know</label>
+        </div>
+      </div>
+    </form>
+
+    <!-- Question 4 -->
+    <table class="table table-bordered">
+      <tr>
+        <th class="th_color">Question 4: How should programmer import module?</th>
+      </tr>
+    </table>
+    <form style="padding-bottom:30px;">
+      <div class="row">
+        <div class="col-12 padding_radio">
+          <input type="radio" id="how_imp_1" name="how_imp" value="a">
+          <label for="how_imp_1">Do not import modules at all.</label>
+        </div>
+        <div class="col-12 padding_radio">
+          <input type="radio" id="how_imp_2" name="how_imp" value="b">
+          <label for="how_imp_2">Import all from the module.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 padding_radio">
+          <input type="radio" id="how_imp_3" name="how_imp" value="c">
+          <label for="how_imp_3">Import all different modules and then choose needed functions.</label>
+        </div>
+        <div class="col-12 padding_radio right">
+          <input type="radio" id="how_imp_4" name="how_imp" value="d">
+          <label for="how_imp_4">Import only needed methods.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <input type="radio" id="idk4" name="how_imp" value="idk" checked>
+          <label for="idk4">I do not know</label>
+        </div>
+      </div>
+    </form>
+
+    <!-- Question 5 -->
+    <table class="table table-bordered">
+      <tr>
+        <th class="th_color">Question 5: What is typosquatting?</th>
+      </tr>
+    </table>
+    <form style="padding-bottom:30px;">
+      <div class="row">
+        <div class="col-12 padding_radio right">
+          <input type="radio" id="typo_squat_1" name="typo_squat" value="a">
+          <label for="typo_squat_1">Creating malicious module with intentional typo and
+            waiting for programmer to make a typo when importing.
+          </label>
+        </div>
+        <div class="col-12 padding_radio">
+          <input type="radio" id="typo_squat_2" name="typo_squat" value="b">
+          <label for="typo_squat_2">Sending a letter to a company which has a typo on their website.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 padding_radio">
+          <input type="radio" id="typo_squat_3" name="typo_squat" value="c">
+          <label for="typo_squat_3">Error in Python interpreter which means that programmer made a typo.</label>
+        </div>
+        <div class="col-12 padding_radio">
+          <input type="radio" id="typo_squat_4" name="typo_squat" value="d">
+          <label for="typo_squat_4">None of these above.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <input type="radio" id="idk5" name="typo_squat" value="idk" checked>
+          <label for="idk5">I do not know</label>
+        </div>
+      </div>
+    </form>
+
+
+    <h3 id="standard_test">Standard library</h3>
+
+    <!-- Question 6 -->
+    <table class="table table-bordered">
+      <tr>
+        <th class="th_color">Question 6: The best way how to handle input according to the guidelines?</th>
+      </tr>
+    </table>
+    <form style="padding-bottom:30px;">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="input_handle_1" name="input_handle" value="a">
+          <label for="input_handle_1">Do not having input at all</label>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="input_handle_2" name="input_handle" value="b">
+          <label for="input_handle_2">No checking</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="input_handle_3" name="input_handle" value="c">
+          <label for="input_handle_3">Blacklisting</label>
+        </div>
+        <div class="col-xs-12 col-sm-6 right">
+          <input type="radio" id="input_handle_4" name="input_handle" value="d">
+          <label for="input_handle_4">Whitelisting</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <input type="radio" id="idk6" name="input_handle" value="idk" checked>
+          <label for="idk6">I do not know</label>
+        </div>
+      </div>
+    </form>
+
+    <!-- Question 7 -->
+    <table class="table table-bordered">
+      <tr>
+        <th class="th_color">Question 7: What is so called "zip bomb"?</th>
+      </tr>
+    </table>
+    <form style="padding-bottom:30px;">
+      <div class="row">
+        <div class="col-12 padding_radio">
+          <input type="radio" id="zip_bomb_question_1" name="zip_bomb_question" value="a">
+          <label for="zip_bomb_question_1">A special file which should decrypt any encrypted .zip files.</label>
+        </div>
+        <div class="col-12 padding_radio right">
+          <input type="radio" id="zip_bomb_question_2" name="zip_bomb_question" value="b">
+          <label for="zip_bomb_question_2">An attack where unziping such file crashes down
+             an app or system because of needed size.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 padding_radio">
+          <input type="radio" id="zip_bomb_question_3" name="zip_bomb_question" value="c">
+          <label for="zip_bomb_question_3">A kind of army bomb which is dropped in zip formations.</label>
+        </div>
+        <div class="col-12 padding_radio">
+          <input type="radio" id="zip_bomb_question_4" name="zip_bomb_question" value="d">
+          <label for="zip_bomb_question_4">A spam of zip files in email client.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <input type="radio" id="idk7" name="zip_bomb_question" value="idk" checked>
+          <label for="idk7">I do not know</label>
+        </div>
+      </div>
+    </form>
+
+    <!-- Question 8 -->
+    <table class="table table-bordered">
+      <tr>
+        <th class="th_color">Question 8: When to use if-else?</th>
+      </tr>
+    </table>
+    <form style="padding-bottom:30px;">
+      <div class="row">
+        <div class="col-12 padding_radio">
+          <input type="radio" id="if_else_1" name="if_else" value="a">
+          <label for="if_else_1">When programmer does not know which errors can occur.</label>
+        </div>
+        <div class="col-12 padding_radio">
+          <input type="radio" id="if_else_2" name="if_else" value="b">
+          <label for="if_else_2">When it is big possibility of an error.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 padding_radio right">
+          <input type="radio" id="if_else_3" name="if_else" value="c">
+          <label for="if_else_3">When it is small possibility of an error.</label>
+        </div>
+        <div class="col-12 padding_radio">
+          <input type="radio" id="if_else_4" name="if_else" value="d">
+          <label for="if_else_4">When working with files.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <input type="radio" id="idk8" name="if_else" value="idk" checked>
+          <label for="idk8">I do not know</label>
+        </div>
+      </div>
+    </form>
+
+    <!-- Question 9 -->
+    <table class="table table-bordered">
+      <tr>
+        <th class="th_color">Question 9: Which of these methods was patched from Python 3.0 on wards?</th>
+      </tr>
+    </table>
+    <form style="padding-bottom:30px;">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="method_patch_1" name="method_patch" value="a">
+          <label for="method_patch_1">os.system()</label>
+        </div>
+        <div class="col-xs-12 col-sm-6 right">
+          <input type="radio" id="method_patch_2" name="method_patch" value="b">
+          <label for="method_patch_2">input()</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="method_patch_3" name="method_patch" value="c">
+          <label for="method_patch_3">eval()</label>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="method_patch_4" name="method_patch" value="d">
+          <label for="method_patch_4">exec()</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <input type="radio" id="idk9" name="method_patch" value="idk" checked>
+          <label for="idk9">I do not know</label>
+        </div>
+      </div>
+    </form>
+
+    <!-- Question 10 -->
+    <table class="table table-bordered">
+      <tr>
+        <th class="th_color">Question 10: What attack can attacker create by using regular expression?</th>
+      </tr>
+    </table>
+    <form style="padding-bottom:30px;">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 right">
+          <input type="radio" id="redos_attack_1" name="redos_attack" value="a">
+          <label for="redos_attack_1">ReDoS</label>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="redos_attack_2" name="redos_attack" value="b">
+          <label for="redos_attack_2">DDOS</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="redos_attack_3" name="redos_attack" value="c">
+          <label for="redos_attack_3">Injection</label>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="redos_attack_4" name="redos_attack" value="d">
+          <label for="redos_attack_4">Typosquatting</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <input type="radio" id="idk10" name="redos_attack" value="idk" checked>
+          <label for="idk10">I do not know</label>
+        </div>
+      </div>
+    </form>
+
+    <h3 id="web_test">Web programming</h3>
+
+    <!-- Question 11 -->
+    <table class="table table-bordered">
+      <tr>
+        <th class="th_color">Question 11: Which organisation makes list of 10 most occuring web app vulnerabilities?</th>
+      </tr>
+    </table>
+    <form style="padding-bottom:30px;">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="top_ten_1" name="top_ten" value="a">
+          <label for="top_ten_1">IANA</label>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="top_ten_2" name="top_ten" value="b">
+          <label for="top_ten_2">NIST</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 right">
+          <input type="radio" id="top_ten_3" name="top_ten" value="c">
+          <label for="top_ten_3">OWASP</label>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="top_ten_4" name="top_ten" value="d">
+          <label for="top_ten_4">IEEE</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <input type="radio" id="idk11" name="top_ten" value="idk" checked>
+          <label for="idk11">I do not know</label>
+        </div>
+      </div>
+    </form>
+
+    <!-- Question 12 -->
+    <table class="table table-bordered">
+      <tr>
+        <th class="th_color">Question 12: What is the top 1 vulnerability in the 2021 list?</th>
+      </tr>
+    </table>
+    <form style="padding-bottom:30px;">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 right">
+          <input type="radio" id="top_one_1" name="top_one" value="a">
+          <label for="top_one_1">Broken access control</label>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="top_one_2" name="top_one" value="b">
+          <label for="top_one_2">Injection</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="top_one_3" name="top_one" value="c">
+          <label for="top_one_3">Broken authentication</label>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="top_one_4" name="top_one" value="d">
+          <label for="top_one_4">Cryptographic failures</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <input type="radio" id="idk12" name="top_one" value="idk" checked>
+          <label for="idk12">I do not know</label>
+        </div>
+      </div>
+    </form>
+
+    <!-- Question 13 -->
+    <table class="table table-bordered">
+      <tr>
+        <th class="th_color">Question 13: How to prevent from cryptographic failures vulnerability?</th>
+      </tr>
+    </table>
+    <form style="padding-bottom:30px;">
+      <div class="row">
+        <div class="col-12 padding_radio">
+          <input type="radio" id="crypto_prevent_1" name="crypto_prevent" value="a">
+          <label for="crypto_prevent_1">By not encrypting any data.</label>
+        </div>
+        <div class="col-12 padding_radio">
+          <input type="radio" id="crypto_prevent_2" name="crypto_prevent" value="b">
+          <label for="crypto_prevent_2">By using open source cryptographic algorithms.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 padding_radio">
+          <input type="radio" id="crypto_prevent_3" name="crypto_prevent" value="c">
+          <label for="crypto_prevent_3">By using HTTP for requests.</label>
+        </div>
+        <div class="col-12 padding_radio right">
+          <input type="radio" id="crypto_prevent_4" name="crypto_prevent" value="d">
+          <label for="crypto_prevent_4">By using the most recent and updated cryptographic algorithms.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <input type="radio" id="idk13" name="crypto_prevent" value="idk" checked>
+          <label for="idk13">I do not know</label>
+        </div>
+      </div>
+    </form>
+
+    <!-- Question 14 -->
+    <table class="table table-bordered">
+      <tr>
+        <th class="th_color">Question 14: How to prevent from SQL injection vulnerability?</th>
+      </tr>
+    </table>
+    <form style="padding-bottom:30px;">
+      <div class="row">
+        <div class="col-12 padding_radio right">
+          <input type="radio" id="injection_prevent_1" name="injection_prevent" value="a">
+          <label for="injection_prevent_1">By validating user input before running sql query.</label>
+        </div>
+        <div class="col-12 padding_radio">
+          <input type="radio" id="injection_prevent_2" name="injection_prevent" value="b">
+          <label for="injection_prevent_2">By executing queries right after user writes input.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 padding_radio">
+          <input type="radio" id="injection_prevent_3" name="injection_prevent" value="c">
+          <label for="injection_prevent_3">By checking if user is from trusted domain.</label>
+        </div>
+        <div class="col-12 padding_radio">
+          <input type="radio" id="injection_prevent_4" name="injection_prevent" value="d">
+          <label for="injection_prevent_4">By setting the maximum lenght of input on 15 characters.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <input type="radio" id="idk14" name="injection_prevent" value="idk" checked>
+          <label for="idk14">I do not know</label>
+        </div>
+      </div>
+    </form>
+
+    <!-- Question 15 -->
+    <table class="table table-bordered">
+      <tr>
+        <th class="th_color">Question 15: What happens after theft of session ID?</th>
+      </tr>
+    </table>
+    <form style="padding-bottom:30px;">
+      <div class="row">
+        <div class="col-12 padding_radio">
+          <input type="radio" id="session_ID_1" name="session_ID" value="a">
+          <label for="session_ID_1">Attacker steals user's IP address.</label>
+        </div>
+        <div class="col-12 padding_radio right">
+          <input type="radio" id="session_ID_2" name="session_ID" value="b">
+          <label for="session_ID_2">Attacker can steal money from user's bank account. (session_ID of bank account login)</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 padding_radio">
+          <input type="radio" id="session_ID_3" name="session_ID" value="c">
+          <label for="session_ID_3">Attacker can do nothing, because session ID cannot be stolen.</label>
+        </div>
+        <div class="col-12 padding_radio">
+          <input type="radio" id="session_ID_4" name="session_ID" value="d">
+          <label for="session_ID_4">None of these above.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <input type="radio" id="idk15" name="session_ID" value="idk" checked>
+          <label for="idk15">I do not know</label>
+        </div>
+      </div>
+    </form>
+    
+    <div style="width:100%; text-align:center;">
+        <form>
+            <input data-toggle="collapse" data-target="#get_points" class="btn btn-dark" type="button" onclick="get_points()" value="Submit" style="background-color:#777; color:white;">
+        </form>
+        <div class="collapse" id="get_points">
+            <h2>Your points: <span id="points"></span>/15. Congratulations!</h2>
+            <button class="btn btn-dark" onclick="seeRightAnswers()" style="background-color:#777; color:white;">Show right answers</button>
+            <button class="btn btn-dark" onclick="location.href='../test/'" style="background-color:#777; color:white;">Refresh</button>
+        </div>   
+    </div>
+</div>
+
+</div>
+</div>
+
+<footer style="padding-top:30px;">
+  <div class="text-center p-3" style="background-color: #555; padding-top:30px; padding-bottom:30px; color:white;">
+      ©2022 BUT FIT
+  </div>
+</footer>
+{% endblock content %}
