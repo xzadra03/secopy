@@ -76,4 +76,6 @@ function seeRightAnswers(){
     for (let i = 0; i < collection.length; i++) {
     collection[i].style.backgroundColor = "lightgreen";
     }
+
+    
 }

@@ -18,8 +18,9 @@ from django.urls import path, include
 import debug_toolbar
 import secopy_app
 
+#setting admin site and including app's urls
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('secopy_app.urls')),
-    path('__debug__/', include(debug_toolbar.urls))
+    path('', include('secopy_app.urls'))
+    #path('__debug__/', include(debug_toolbar.urls))
 ]

@@ -51,6 +51,9 @@
         </div>
       </div>
     </form>
+    <p style="background-color:#eeeeee; border:1px solid black; padding:20px;" class="collapse why">
+        It is always the latest stable version, because many vulnerabilities have been already patched in the latest releases.
+    </p>
 
     <!-- Question 2 -->
     <table class="table table-bordered">
@@ -62,11 +65,11 @@
       <div class="row">
         <div class="col-12 padding_radio">
           <input type="radio" id="venv_1" name="venv" value="a">
-          <label for="venv_1">Because faster Python interpretation of code.</label>
+          <label for="venv_1">Because of faster Python interpretation of code.</label>
         </div>
         <div class="col-12 right padding_radio">
           <input type="radio" id="venv_2" name="venv" value="b">
-          <label for="venv_2">Because potentionally malicious code would effect only this project in venv.</label>
+          <label for="venv_2">Because of potentionally malicious code would effect only this project in venv.</label>
         </div>
       </div>
       <div class="row">
@@ -86,6 +89,12 @@
         </div>
       </div>
     </form>
+    <p style="background-color:#eeeeee; border:1px solid black; padding:20px;" class="collapse why">
+        When using virtual environment, user has acces only to modules which are imported to particular
+        venv, therefore other projects cannot effect each other. Even malicious modules cannot spread in
+        such environment. It could be theoretically faster for interpreter, but we are talking about secure
+        coding.
+    </p>
 
     <!-- Question 3 -->
     <table class="table table-bordered">
@@ -124,6 +133,11 @@
         </div>
       </div>
     </form>
+    <p style="background-color:#eeeeee; border:1px solid black; padding:20px;" class="collapse why">
+        Implicit import has been banned from Python since version 3, relative import contains character ., so
+        it could be explicit or absolute. According to the guidelines it is absolute import. Explicit import is not
+        entirely wrong, because it shows exactly what we want to import, but this test is made to test the guidelines.
+    </p>
 
     <!-- Question 4 -->
     <table class="table table-bordered">
@@ -159,6 +173,11 @@
         </div>
       </div>
     </form>
+    <p style="background-color:#eeeeee; border:1px solid black; padding:20px;" class="collapse why">
+        The most secure way of coding is to not import at all, but this question asks why not if.
+        If we are importing a module it is important to know exactly what methods we need and import only them.
+        It lowers the risk of importing something malicious.
+    </p>
 
     <!-- Question 5 -->
     <table class="table table-bordered">
@@ -196,7 +215,9 @@
         </div>
       </div>
     </form>
-
+    <p style="background-color:#eeeeee; border:1px solid black; padding:20px;" class="collapse why">
+        It is certainly the first answer, because typosquatting is kind of cyberattack, which uses user's lack of attention.
+    </p>
 
     <h3 id="standard_test">Standard library</h3>
 
@@ -234,6 +255,11 @@
         </div>
       </div>
     </form>
+    <p style="background-color:#eeeeee; border:1px solid black; padding:20px;" class="collapse why">
+        Again, question asks how, so not having input is right, but not in this questions.
+        The most secure way according to guidelines is whitelisting. Input must be validated, if not 
+        code becomes very vulnerable. Blacklisting cannot validate all of the possible inputs. 
+    </p>
 
     <!-- Question 7 -->
     <table class="table table-bordered">
@@ -250,7 +276,7 @@
         <div class="col-12 padding_radio right">
           <input type="radio" id="zip_bomb_question_2" name="zip_bomb_question" value="b">
           <label for="zip_bomb_question_2">An attack where unziping such file crashes down
-             an app or system because of needed size.</label>
+             an app or system because of the needed size.</label>
         </div>
       </div>
       <div class="row">
@@ -270,6 +296,10 @@
         </div>
       </div>
     </form>
+    <p style="background-color:#eeeeee; border:1px solid black; padding:20px;" class="collapse why">
+        It is called zip, because it uses .zip file and bomb because extracting such file causes massive loss of memory or
+        crash of app. There are zip bomb files in sizes of kiloBytes which need 3 GigaBytes of memory to extract.
+    </p>
 
     <!-- Question 8 -->
     <table class="table table-bordered">
@@ -285,13 +315,13 @@
         </div>
         <div class="col-12 padding_radio">
           <input type="radio" id="if_else_2" name="if_else" value="b">
-          <label for="if_else_2">When it is big possibility of an error.</label>
+          <label for="if_else_2">When it is small possibility of an error.</label>
         </div>
       </div>
       <div class="row">
         <div class="col-12 padding_radio right">
           <input type="radio" id="if_else_3" name="if_else" value="c">
-          <label for="if_else_3">When it is small possibility of an error.</label>
+          <label for="if_else_3">When it is big possibility of an error.</label>
         </div>
         <div class="col-12 padding_radio">
           <input type="radio" id="if_else_4" name="if_else" value="d">
@@ -305,6 +335,12 @@
         </div>
       </div>
     </form>
+    <p style="background-color:#eeeeee; border:1px solid black; padding:20px;" class="collapse why">
+        If user do not know which error could occur or works with files he should use try-catch block.
+        If-else block is reguralry used for flow control which means that is beneficial to use it
+        if there is a bigger chance for mistake to happen. With smaller chance try-except becomes more
+        efficient, because one try-catch can cover many mistakes.
+    </p>
 
     <!-- Question 9 -->
     <table class="table table-bordered">
@@ -340,6 +376,9 @@
         </div>
       </div>
     </form>
+    <p style="background-color:#eeeeee; border:1px solid black; padding:20px;" class="collapse why">
+        Only method input. See the guidelines for more information. 
+    </p>
 
     <!-- Question 10 -->
     <table class="table table-bordered">
@@ -375,6 +414,10 @@
         </div>
       </div>
     </form>
+    <p style="background-color:#eeeeee; border:1px solid black; padding:20px;" class="collapse why">
+        ReDoS (Regular expression denial of services). By creating input such as aaaaaaaaaaaaaaaaaaaaaaaaaaa!
+        which can cause timeout when evil regex is present.
+    </p>
 
     <h3 id="web_test">Web programming</h3>
 
@@ -412,6 +455,10 @@
         </div>
       </div>
     </form>
+    <p style="background-color:#eeeeee; border:1px solid black; padding:20px;" class="collapse why">
+        Every developer should know that the answer is OWASP. The top 10 is one of the most vital
+        list for web developer.
+    </p>
 
     <!-- Question 12 -->
     <table class="table table-bordered">
@@ -447,6 +494,9 @@
         </div>
       </div>
     </form>
+    <p style="background-color:#eeeeee; border:1px solid black; padding:20px;" class="collapse why">
+        Broken Access Control. In 2017 it was Injection.
+    </p>
 
     <!-- Question 13 -->
     <table class="table table-bordered">
@@ -462,7 +512,7 @@
         </div>
         <div class="col-12 padding_radio">
           <input type="radio" id="crypto_prevent_2" name="crypto_prevent" value="b">
-          <label for="crypto_prevent_2">By using open source cryptographic algorithms.</label>
+          <label for="crypto_prevent_2">By using open-source cryptographic algorithms.</label>
         </div>
       </div>
       <div class="row">
@@ -482,6 +532,11 @@
         </div>
       </div>
     </form>
+    <p style="background-color:#eeeeee; border:1px solid black; padding:20px;" class="collapse why">
+        Using open-source cryptographic algorithms is not good since the algorithms are public even for attackers.
+        The best method is to use the latest and updated algorithms which are not known even for attackers.
+        HTTP is not safe and not encrypting too.
+    </p>
 
     <!-- Question 14 -->
     <table class="table table-bordered">
@@ -517,6 +572,10 @@
         </div>
       </div>
     </form>
+    <p style="background-color:#eeeeee; border:1px solid black; padding:20px;" class="collapse why">
+        For SQL injection is enough 6 characters, so user has to validate the input thoroughly and before
+        SQL query execution.
+    </p>
 
     <!-- Question 15 -->
     <table class="table table-bordered">
@@ -552,6 +611,10 @@
         </div>
       </div>
     </form>
+    <p style="background-color:#eeeeee; border:1px solid black; padding:20px;" class="collapse why">
+        When attacker steals user's identity he can do whatever he wants. Session can be stolen and it is used
+        for such purposes as is sending money to attacker's account or buying stuff with user's credit card.
+    </p>
     
     <div style="width:100%; text-align:center;">
         <form>
@@ -559,7 +622,7 @@
         </form>
         <div class="collapse" id="get_points">
             <h2>Your points: <span id="points"></span>/15. Congratulations!</h2>
-            <button class="btn btn-dark" onclick="seeRightAnswers()" style="background-color:#777; color:white;">Show right answers</button>
+            <button class="btn btn-dark" onclick="seeRightAnswers()" data-toggle="collapse" data-target=".why" style="background-color:#777; color:white;">Show right answers</button>
             <button class="btn btn-dark" onclick="location.href='../test/'" style="background-color:#777; color:white;">Refresh</button>
         </div>   
     </div>
