@@ -1,7 +1,13 @@
+#
+# file: urls.py
+# author: Jan Zádrapa, BUT FIT
+# date: 3/2022
+# brief: file, wher URL paths are set and view method is assigned to them
+#
+
 from django.urls import path
 from . import views
 
-#url conf
 urlpatterns = [
     path('', views.intro),
     path('login/', views.auth_login),

@@ -1,3 +1,9 @@
+#
+# file: urls.py
+# author: Jan Zádrapa, BUT FIT
+# date: 3/2022
+# brief: file, wher URL paths are set and view method is assigned to them
+#
 from django import forms  
 from django.contrib.auth.models import User  
 from django.contrib.auth.forms import UserCreationForm

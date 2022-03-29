@@ -1,3 +1,10 @@
+/**
+ *  file: custom_js.js
+ *  author: Jan Zádrapa, BUT FIT
+ *  date: 3/2022
+ *  brief: Custom js file for application SeCoPy
+ */
+
 var s_points = 0;
 
 function get_points(){
