@@ -1,3 +1,4 @@
+{% load static %}
 {% comment %} 
 
 file: base.html
@@ -6,11 +7,10 @@ date: 3/2022
 brief: Basic template for SeCoPy, loaded on every site
 {% endcomment %}
 
-{% load static %}
-
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/custom_css.css'%}">
@@ -60,6 +60,7 @@ brief: Basic template for SeCoPy, loaded on every site
                                 </button>
                                 <div class="theory" id="theory-collapse">
                                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                        <li><a href="../theory#standards"><button type="button" class="btn btn-dark" style="width:85%; color:black;">Standards</button></a></li>
                                         <li><a href="../theory#basics"><button type="button" class="btn btn-dark" style="width:85%; color:black;">Basics</button></a></li>
                                         <li><a href="../theory#standard_lib"><button type="button" class="btn btn-dark" style="width:85%; color:black;">Standard library</button></a></li>
                                         <li><a href="../theory#web_program"><button type="button" class="btn btn-dark" style="width:85%; color:black;">Web programming</button></a></li>

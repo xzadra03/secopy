@@ -1,3 +1,4 @@
+{% extends "base.html" %}
 {% comment %} 
 
 file: base.html
@@ -6,19 +7,24 @@ date: 3/2022
 brief: Template for downlading content (examples)
 {% endcomment %}
 
-{% extends "base.html" %}
-
 {% block content %}
 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8" id="files">
-    <h3>Files to download:</h3>
+    <h2>Files to download:</h2>
     <ul>
-      <li>Example wrong import: <a href="../static/files/import_override.py" download>link</a></li>
+      <li>Example wrong import: <a href="../static/files/import.zip" download>link</a></li>
       <li>Example typosquatting: <a href="../static/files/modules.zip" download>link</a></li>
-      <li>Example input validation: <a href="../static/files/input.py" download>link</a></li>
-      <li>Example creating file: <a href="../static/files/file.py">link</a></li>
-      <li>Example command injection: <a href="../static/files/command_inj.py">link</a></li>
+      <li>Example input validation: <a href="../static/files/validation.zip" download>link</a></li>
+      <li>Example creating file: <a href="../static/files/file.zip">link</a></li>
+      <li>Example input method vulnerability: <a href="../static/files/input_vulnerability.py">link</a></li>
     </ul>
-  </div>
+    <h4>Download all examples above: <a href="../static/files/all_examples.zip">link</a></h4>
+
+    <h3>The best for the last</h3>
+    <ul>
+      <li>Application simulating SQL injection (possible ReDoS attack): <a href="../static/files/exploit_web.zip">link</a></li>
+      <li>Example command execution: <a href="../static/files/Trojan_attack.py">link</a></li>
+    </ul>
+</div>
 
 </div>
 </div>
