@@ -13,75 +13,101 @@ brief: File which contains guidelines for SeCoPy
    <h1>Secure Coding Guidelines for Python</h1>
       <div id="standards">
         <h2>Existing methods and standards</h2>
-        There are several existing standards and methods that can be used as helping hand when developing a software. Some of them are official standards like ISO and NIST and others are community based and open like OWASP. In this chapter is my goal to introduce these standards and explain their importance when developing a secure software.\\
+        There are several existing standards and methods that can be used as helping hand when developing a software.
+         Some of them are official standards like ISO and NIST and others are community based and open like OWASP.
+          In this chapter is my goal to introduce these standards and explain their importance when developing a secure software.
 
-\section{OWASP}
-The first major project dealing with secure coding is Open Web Application Security Project (OWASP). A community based project founded in 2001 by Mark Curphey. His main goal was to raise awareness about security breaches in applications by identifying some of the most critical risks. It is a non-profit organization based in the USA, but nowadays has already headquarters also in Europe.\\
+        <h3>OWASP</h3>
+        The first major project dealing with secure coding is Open Web Application Security Project (OWASP). A community based project founded in 2001
+         by Mark Curphey. His main goal was to raise awareness about security breaches in applications by identifying some of the most critical risks.
+          It is a non-profit organization based in the USA, but nowadays has already headquarters also in Europe.
 
-The main goal of OWASP is to inform developers about the most important security risks in development. For this purpose, OWASP developed several projects, with the most significant one, the OWASP Top 10. The OWASP Top 10 is used as a measurement mainly for web application developers.\\
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=10cm]{obrazky-figures/logo.png}
-  \caption{OWASP logo.}
-  \label{fig:logo_owasp}
-\end{figure}
+        The main goal of OWASP is to inform developers about the most important security risks in development.
+         For this purpose, OWASP developed several projects, with the most significant one, the OWASP Top 10.
+          The OWASP Top 10 is used as a measurement mainly for web application developers.
+          <div class="text-center">
+            <img style="width:50%;" src="../static/images/logo.png" alt="The logo of OWASP.">
+          </div>
 
-\subsection{OWASP Top 10}
-The OWASP Top 10 is widely used for web application developers as a guideline of what to be careful of. The Top 10 was first published in 2003, and it contains the most dangerous exploits sort by the percentage of occurrence in applications. The Top 10 is published every four years, with the latest edition published in 2021. In this chapter will be a list of the latest OWASP top ten edition. The order will reflect the original order by OWASP. Details can be found on the official OWASP website~\cite{owasp}. Some of these vulnerabilities will be thoroughly inspected in the guidelines itself.\\
+        <h4>The OWASP top 10</h4>
+        The OWASP Top 10 is widely used for web application developers as a guideline of what to be careful of. The Top 10 was first published in 2003,
+         and it contains the most dangerous exploits sort by the percentage of occurrence in applications.
+          The Top 10 is published every four years, with the latest edition published in 2021. In this chapter will be a list of the latest
+           OWASP top ten edition. The order will reflect the original order by OWASP. Details can be found on the official OWASP
+           <a href="https://owasp.org/">website.</a>
+            Some of these vulnerabilities will be thoroughly inspected in the guidelines itself.
 
-\begin{itemize}
-  \item Broken Access Control
-  \item Cryptographic Failures
-  \item Injection
-  \item Insecure Design
-  \item Security Misconfiguration
-  \item Vulnerable and Outdated Components
-  \item Identification and Authentication Failures
-  \item Software and Data Integrity Failures
-  \item Security Logging and Monitoring Failures
-  \item Server-Side Request Forgery
-\end{itemize}
+          <ul>
+            <li>Broken Access Control</li>
+            <li>Cryptographic Failures</li>
+            <li>Injection</li>
+            <li>Insecure Design</li>
+            <li>Security Misconfiguration</li>
+            <li>Vulnerable and Outdated Components</li>
+            <li>Identification and Authentication Failures</li>
+            <li>Software and Data Integrity Failures</li>
+            <li>Security Logging and Monitoring Failures</li>
+            <li>Server-Side Request Forgery</li>
+          </ul>
 
-This list is so important that vulnerabilities that did not make it to the guidelines should be at least introduced here. Following sections are the rest of the OWASP top 10.\\
+          This list is so important that vulnerabilities that did not make it to the guidelines should be at least introduced here.
+           Following sections are the rest of the OWASP top 10.
 
-\subsubsection{Insecure design}
-Special category dealing with design exploits. In this category, we can fight bad designed GUI and other design flaws. Example here would be bad protection against automatic access (bots).\\
-In this category also appears user misuse of web application GUI.[] Cinema chain allows book seats without deposit up to 15 seats. Attacker can book all the seats in the cinema without paying single dollar, causing massive loss of income of cinema.
+           <h4>Insecure design</h4>
+          Special category dealing with design exploits. In this category, we can fight bad designed GUI and other design flaws.
+          Example here would be bad protection against automatic access (bots).
+          In this category also appears user misuse of web application GUI.
+          Cinema chain allows book seats without deposit up to 15 seats. Attacker can book all the seats in the cinema without paying single dollar,
+           causing massive loss of income of cinema.
 
-\subsubsection{Security misconfiguration}
-Web application that through its implementation allows attackers and users to see its vulnerabilities. Application is badly configured or there are missing some security hardening components. The app contains unnecessary features, test data and accounts. Errors are shown to the user with exceptions from code. These are a few examples of misconfiguration.\\
-The solution is updating security configuration, deleting test data and default users, better error handling.
+          <h4>Security misconfiguration</h4>
+          Web application that through its implementation allows attackers and users to see its vulnerabilities.
+           Application is badly configured or there are missing some security hardening components. The app contains unnecessary features,
+            test data and accounts. Errors are shown to the user with exceptions from code. These are a few examples of misconfiguration.
+          The solution is updating security configuration, deleting test data and default users, better error handling.
 
-\subsubsection{Vulnerable and outdated components}
-It is important to know which component the app (client and server) is using. This vulnerability comes from out of date software and components. Including OS, database, server API, libraries and so on.\\
-Checking your dependencies is critical, updating modules and libraries and software is also important.\\
-App is using a module, that has outdated secure modules. These modules have some exploits that have been repaired, but app is not updated, so an attacker can try this well-known attack and still succeeds only because of outdated module in application.
+          <h4>Vulnerable and outdated components</h4>
+          It is important to know which component the app (client and server) is using. 
+          This vulnerability comes from out of date software and components. Including OS, database, server API, libraries and so on.
+          Checking your dependencies is critical, updating modules and libraries and software is also important.
+          App is using a module, that has outdated secure modules.
+           These modules have some exploits that have been repaired, but app is not updated, so an attacker can try this well-known attack
+            and still succeeds only because of outdated module in application.
 
 
-\subsubsection{Software and data integrity failures}
-This exploit includes all integrity failures relate to integrity violations. The worst-case scenario are apps with automatic updates of plugins, sources, repositories and so on. What if someone changes the module to malicious module. Then is app also malicious and not safe.\\
-Preventing is simple. Using digital signatures to verify the software. Use trusted sources.
-%mozna dopsat
+          <h4>Software and data integrity failures</h4>
+          This exploit includes all integrity failures relate to integrity violations.
+           The worst-case scenario are apps with automatic updates of plugins, sources, repositories and so on. What if someone changes the module
+            to malicious module. Then is app also malicious and not safe.
+          Preventing is simple. Using digital signatures to verify the software. Use trusted sources.
 
-\section{NIST}
-National Institute of Standards and Technology is a US agency and sciences laboratory. It was formed in 1901 and its mission is rising US industrial competitiveness~\cite{wiki_NIST}. It is divided into several sectors. Sectors are as follows:
-\begin{itemize}
-  \item Communications Technology Laboratory (CTL)
-  \item Engineering Laboratory (EL)
-  \item Information Technology Laboratory (ITL)
-  \item Center for Neutron Research (NCNR)
-  \item Material Measurement Laboratory (MML)
-  \item Physical Measurement Laboratory (PML)
-\end{itemize}
+          <h3>NIST</h3>
+          National Institute of Standards and Technology is a US agency and sciences laboratory.
+           It was formed in 1901 and its mission is rising US industrial competitiveness.
+            It is divided into several sectors. Sectors are as follows:
+          <ul>
+            <li>Communications Technology Laboratory (CTL)</li>
+            <li>Engineering Laboratory (EL)</li>
+            <li>Information Technology Laboratory (ITL)</li>
+            <li>Center for Neutron Research (NCNR)</li>
+            <li>Material Measurement Laboratory (MML)</li>
+            <li>Physical Measurement Laboratory (PML)</li>
+          <ul>
 
-For our purpose, it is enough to know that each sector is creating standards.
+          For our purpose, it is enough to know that each sector is creating standards.
 
-\subsection{NIST for cybersecurity}
-There are many sections where is NIST creating standards. One of these sections is IT, precisely cybersecurity. NIST develops standards, guidelines, best practices and other. NIST cooperates with other agencies such as NICE (National Initiative for Cybersecurity Education). Their goal is to educate the public about cybersecurity and train developers. They are also aiming at cryptography and cybersecurity measurement~\cite{NIST_cyber}.\\
+          <h4>NIST for cybersecurity</h4>
+          There are many sections where is NIST creating standards. One of these sections is IT, precisely cybersecurity.
+           NIST develops standards, guidelines, best practices and other. NIST cooperates with other agencies such as NICE 
+           (National Initiative for Cybersecurity Education). Their goal is to educate the public about cybersecurity and train developers.
+            They are also aiming at cryptography and cybersecurity measurement.
 
-\subsubsection{NIST 800-160}
-NIST 800-160 is called Systems Security Engineering. The main goal of this paper is to raise awareness about security problems when developing is system. The paper suggests strategies how to accomplish secure system. It is paper for developers and also for management, but it is really comprehensive. It deals with a lot of problems~\cite{NIST_paper}.
+          <b>NIST 800-160</b>
+          NIST 800-160 is called Systems Security Engineering. The main goal of this paper is to raise awareness about security problems when
+           developing is system. The paper suggests strategies how to accomplish secure system. It is paper for developers and also for management,
+            but it is really comprehensive. It deals with a lot of problems.
       </div>
+
      <div id="basics">
        <h2>Basics</h2>
        There are some important basics that needs to be shown to the programmer. They consist more of a right Python settings than some coding examples. Setting Python right can prevent many possible vulnerabilities.

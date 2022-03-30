@@ -46,9 +46,33 @@ brief: Basic template for SeCoPy, loaded on every site
             </div>
         </div>
     
+        {% comment %} From https://stackoverflow.com/questions/26317679/how-to-add-hamburger-menu-in-bootstrap {% endcomment %}
+        <nav class="navbar navbar-inverse navbar-static-top hidden-sm hidden-md hidden-lg" role="navigation" style="background-color:#555;">
+            <div class="container">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                              <span class="sr-only">Toggle navigation</span>
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                          </button>
+              </div>
+          
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li><a style="color:white;" href="../">Home</a></li>
+                  <li><a style="color:white;" href="../theory">Theory</a></li>
+                  <li><a style="color:white;" href="../test">Test</a></li>
+                  <li><a style="color:white;" href="../downloads">Downloads</a></li>
+                </ul>
+              </div>
+            </div>
+        </nav>
+        
         <div class="container mt-0">
             <div class="row">
-                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                <div class="col-sm-4 col-md-4 col-lg-4 hidden-xs" style="position:sticky; top:0;">
                     <div class="flex-shrink-0 p-3 bg-white">
                         <ul class="list-unstyled ps-0">
                             <button onclick="location.href='../'" class="btn btn-toggle align-items-center rounded" style="background-color:#cccccc; width:85%; height:50px; color:black;">
