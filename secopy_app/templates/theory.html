@@ -281,16 +281,165 @@ brief: File which contains guidelines for SeCoPy
      </div>
        
      <div id="others">
-       <h2>Others</h2>
-       This guidelines could have had dozens of pages, but only the three most concerning sections were mentioned.
-       Other vulnerabilities can be found <a href="https://www.cvedetails.com/vulnerability-list/vendor_id-10210/product_id-18230/Python-Python.html">here</a>. There are vulnerabilities which have been patched versions ago, but there are also ones that have not been patched.
-       All the info is available on the link mentioned before.
-       <ul>
-           <li>Executing code from comments</li>
-           <li>urlib.parse exploits</li>
-           <li>ipaddress zero characters in the octets exploit</li>
-       </ul>
-     </div>
+      <h2>Real-life exploits</h2>
+      This chapter is about exploits again, but from more detailed view. Some of the examples were shown in previous parts 
+      which are focused on theoretical approach with some examples. Here, in this chapter, will be examples described why is happening what is happening.  
+      <h3>SQL Injection</h3>
+      The first exploit I would like to cover is SQL injection. This exploit is very common, but in previous chapter was
+       introduced theoretically. It was created another web application for SQL injection testing and showing to user what
+        it can do.
+      The application itself was again developed in Python Django with some Bootstrap. This application simulates database
+       of users with their details.
+      <div class="text-center">
+        <img style="width:100%;" src="../static/images/fake_database.png" alt="The database of users.">
+      </div>
+      It is fully functional, user can add user as he pleases and it will show in the table. Adding is done with help of
+       Django form, so none vulnerabilities should be there. What is important, that the "login" which is on top of the table
+        uses the method <i>raw</i> on executing SQL queries.
+      When user wants to search for user (log in) it must enter the username and password which is then not tested and
+       executes SQL query. The method for searching user looks like this:
+      
+       <div class="text-center">
+        <img style="width:100%;" src="../static/images/sql_inj.png" alt="Method with possible SQL injection.">
+        </div>
+
+
+      As was mentioned in guidelines. Input has to be validated and here it is not. That means when user/attacker finds out,
+       he can try exploit the method. In this case it is very easy. Typing one of these inputs to username field breaks the
+        app and user can become any user he wants or he can choose to print all users.  
+      <ul>
+          <li>admin' --</li>
+          <li> ' or 1=1--</li>
+          <li> [any username]' --</li>
+      </ul>
+      The app works as follows. It simulates the login form and the user that is shown is as the one user would log in.
+       The SQL query which executes after clicking on the search/reset button is shown below the user table. When user enters
+        the first item from the list the SQL query would be:
+      
+      <pre>SELECT * FROM user WHERE username = 'admin' --' AND password = ''</pre>
+
+      As you can see, the user is now logged as admin, because typing ' after admin means the end of the string (username)
+       and -- means start of the comment. Everything after these characters does not execute, so the user does not have to
+        enter the password.
+      How to prevent? Just simple answer, use Django forms in the first place. The Django login form does not even allow
+       characters like - be in the username. And its login method can create a session and check the username and password.
+        Do not reinvent a wheel when it is not necessary. If it is not possible to use Django login form then never execute
+         input right from the user. It has been mentioned a few times in these guidelines, but in this case, simply validating
+          the input with the help of regular expressions for example, would stop the SQL injection. It must be said,
+           that cause SQL injection is not as easy as it seems in modern Django, but it is definitely possible.
+      
+      <h3>ReDoS</h3>
+      Regular expression denial of services is an interesting attack. I have been using regular expressions for several
+       years and I would not believe if somebody told me that with regexes can user crash whole application or slow it
+        drastically. As was said before there are regular expressions which can cause harm. In this chapter it is appropriate
+         to list them. These expressions are called "evil regexes" and some of them could be in many applications, because
+          they were used to checking usernames and e-mails.
+
+      <ul>
+          <li>(a+)+</li>
+          <li>([a-zA-Z]+)*</li>
+          <li>(a|aa)+</li>
+          <li>(a|a?)+</li>
+          <li>(.*a){x} for x \> 10</li>
+          <li>^([a-zA-Z0-9])(([-.]|[_]+)?([a-zA-Z0-9]+))*(@){1}[a-z0-9]+[.]{1}(([a-z]{2,3})|([a-z]{2,3}[.]{1}[a-z]{2,3}))$</li>
+      </ul>
+
+      The last regex was used for e-mail validation. The one thing these regexes have in common is their vulnerability.
+       This input <i>aaaaaaaaaaaaaaaaaaaaaaaa!</i> causes timeouts and crashes.
+      As an example I added input validation in my web application which simulates the login form and user database.
+       Of course I am using regular expression, because as I have already written, regular expressions are really good helper.
+        The condition is simple yet "effective".   
+      
+        <div class="text-center">
+          <img style="width:100%;" src="../static/images/redos_exploit.png" alt="Method with possible ReDoS.">
+        </div>      
+      When user types the input <i>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!</i> the app stops responding and the request will
+       never be fulfilled. In some applications timeout will occur and restart would be necessary.
+      Only defence is to avoid using evil regular expressions. On this <a href="https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS">site</a> can programmer found further
+       information about another exploits and so on. I do not want to scare anyone of using regular expressions, but my advice
+        is to be careful and thoroughly test the condition if there is not some evil regular expression.
+      
+      
+      <h3>Comment code execution - 'Trojan source'</h3>
+      The best for the last or the latest for the last. This exploit, which has been called in related
+       <a href="https://trojansource.codes/trojan-source.pdf">work</a> Trojan source, is one of the latest examples,
+        that there are still vulnerabilities for many programming languages out there. It was discovered in late 2021
+         and its impact was quite drastic.
+      For this example I prepared small registration and login script in Python. We could pretend that this form or its
+       background is used somewhere even if it is really simple example.
+      
+       <div class="text-center">
+        <img src="../static/images/early_return.png" alt="Early return due to U+2067.">
+      </div>
+      On the figure above we can see that return is misplaced outside the multi-line comment. This should mean one thing.
+       If the condition is evaluated true method returns and code continues. What is the big deal when it can be seen on
+        the first sight. The big deal is that is the way how the interpreter sees the code. The basic text editor or the
+         GitHub repository with invisible symbols  turn off sees it like can be seen on the figure below.
+         <div class="text-center">
+          <img style="width:100%;" src="../static/images/early_return_text.png" alt="Early return due to U+2067 in text editor.">
+        </div>
+      All the problems creates the Unicode character U+2067 (Right-to-Left-Isolation). This character is used when it is
+       needed the right to left reading. It is needed for example in Arabic or Hebrew language. Why it might be problem and
+        what it can cause?
+      The biggest problem is that this vulnerability can be exploited not only in Python, but also in languages like C,
+       Java, C++ and many others. The second issue occurs when programmer downloads code from the internet. There are many open
+        source codes out there or pages with some code examples. Because this character could be invisible in code editors,
+         programmer does not have to see the problem and takes malicious code to production.
+      It can cause early returns, early return can cause harm. In example below early returns causes DoS by not enabling user to login.
+      <div class="text-center">
+        <img style="width:100%;" src="../static/images/comment_out.png" alt="Output from registration script.">
+      </div>
+
+      This output above shows that even if user tries to login to already created account the script does not print the
+       message Login successful! as it should. Even if tried to login as non-existing user the program does not output
+        anything. Everything is caused by DoS from the comment.
+      The prevention is quite simple. Use environments where are invisible characters shown such as Visual studio code,
+       where the default setting is set to show invisible characters. GitHub has already managed to add warning to all
+        of the projects where invisible characters are included. The third advice directly for Python is to use only one-line
+         comments (starts with #). These comments are not vulnerable against Trojan source.
+      
+      <h3>Pickle module</h3>
+      As mentioned in guidelines pickle is Python module used for deserializing and serializing objects from or to byte
+       stream. The problem with pickle is that it does not check the data which are send through the byte stream.
+        The object is usually encrypted by base64 encryption, so it is hard to check for malicious content.
+      In this exploit will be shown how does the pickle work. Then using pickle we create attack, where attacker steals data
+       from server. This application is created using Flask, which is another Python framework for web application.
+        For this example is more suitable because it does not require such preparations as Django. Let's do it then.
+      Pickle has many methods, but for this exploit are important these two and also override of method __reduce__():
+      <ul>
+        <li>dumps() - this method returns byte string of given object</li>
+        <li>loads() - this method deserializes byte data to object form</li>
+        <li>__reduce__() - this method creates the initial object, which is then modified</li>
+      </ul>
+      With these method it is possible to create an object where command can be hidden.
+       The problem is that communication through request is encoded by base64 on the server.
+        So using module base64 we can encrypt the byte string. The goal of this attack is to steals user data from the server.
+         This is how the command, its byte string and then pickle look like:
+      
+        <pre>command = ('ls -a')</br>return os.system, (command,)</br>\x80\x04\x95\x00\x00\x00\x00\x00\x00\x00\x8c\x05posix\x94\x8c\x06system\x94\x93\x94\x8c\x05ls -a\x94\x85\x94R\x94.'
+        </br>b'gASVIAAAAAAAAACMBXBvc2l4lIwGc3lzdGVtlJOUjAVscyAtYZSFlFKULg=='</pre>
+      
+      The last pickled string should be sent to the server which then executes the code and shows its content.
+       It could be done by sending it over a cookie as shown <a href="https://maoutis.github.io/writeups/Web%20Hacking/Pickle%20Insecure%20Deserialization/">here</a>.
+      This exploit is created with help of blog post of David Hamann <a href="https://davidhamann.de/2020/04/05/exploiting-python-pickle/">his blogpost</a>.
+       The server looks in request form and unpickles everything which is sent in item 'pickle='. When attacker runs this
+        command, the server responses with list of files and folders.
+
+      <pre>curl -d "pickled=gASVIAAAAAAAAACMBXBvc2l4lIwGc3lzdGVtlJOUjAVscyAtYZSFlFKULg==" http://127.0.0.1:5000/pickle</pre>
+      <div class="text-center">
+        <img src="../static/images/pickle_answer.png" alt="Output from server.">
+      </div>
+
+
+      Now it is easy to get the data from the server. If the root rights is needed, there is no problem to execute command
+       line interface and gain that rights. This example only shows how to get data. If run again with this command
+      <pre>ls -a && cd data && ls -a && cat *.txt</pre>
+      attacker tries to open files in folder data which have .txt ending. Fortunately for him folder data contains file
+       users.txt with all of the users logged. Attacker has all the usernames now and can continue with other types of
+        attacks. SQL injection on login form, for example.
+      It is only an example. The point is that pickle should not be used or if must be used then with some kind
+       of encryption (HMAC) as it was said it the guidelines. Code to this exploit can be found in downloads in SeCoPy. 
+    </div>
    </div>
 
 </div>

@@ -15,10 +15,10 @@ brief: Template for user test
       of knowledge by points rewarded.
     </p>
     <ul>
-      <li>15 - 12 => you can code securely</li>
-      <li>11 -  8 => you know what is secure coding</li>
-      <li> 7 -  4 => try reading guidelines again</li>
-      <li> 4 -  0 => secure coding is not your thing</li>
+      <li>20 - 16 => you can code securely</li>
+      <li>15 - 11 => you know what is secure coding</li>
+      <li>10 -  6 => try reading guidelines again</li>
+      <li> 5 -  0 => secure coding is not your thing</li>
     </ul>
     Try perform the test without opening guidelines. There will be no restriction, but this test is for testing your knowledge and
     understanding the concern.
@@ -548,40 +548,42 @@ brief: Template for user test
     <!-- Question 14 -->
     <table class="table table-bordered">
       <tr>
-        <th class="th_color">Question 14: How to prevent from SQL injection vulnerability?</th>
+        <th class="th_color">Question 14: Is it secure to use Django built-in form?</th>
       </tr>
     </table>
     <form style="padding-bottom:30px;">
       <div class="row">
         <div class="col-12 padding_radio">
-          <input type="radio" id="injection_prevent_1" name="injection_prevent" value="a">
-          <label class="right" for="injection_prevent_1">By validating user input before running sql query.</label>
+          <input type="radio" id="django_form_1" name="django_form" value="a">
+          <label class="right" for="django_form_1">Yes, Django form has already covered a lot of vulnerabilities.</label>
         </div>
         <div class="col-12 padding_radio">
-          <input type="radio" id="injection_prevent_2" name="injection_prevent" value="b">
-          <label for="injection_prevent_2">By executing queries right after user writes input.</label>
+          <input type="radio" id="django_form_2" name="django_form" value="b">
+          <label for="django_form_2">No, Django forms are complicated and insecure.</label>
         </div>
       </div>
       <div class="row">
         <div class="col-12 padding_radio">
-          <input type="radio" id="injection_prevent_3" name="injection_prevent" value="c">
-          <label for="injection_prevent_3">By checking if user is from trusted domain.</label>
+          <input type="radio" id="django_form_3" name="django_form" value="c">
+          <label for="django_form_3">Yes, Django use a special methods which are the most secure in the world.</label>
         </div>
         <div class="col-12 padding_radio">
-          <input type="radio" id="injection_prevent_4" name="injection_prevent" value="d">
-          <label for="injection_prevent_4">By setting the maximum lenght of input on 15 characters.</label>
+          <input type="radio" id="django_form_4" name="django_form" value="d">
+          <label for="django_form_4">No, forms do not have even password validation.</label>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12 col-sm-12">
-          <input type="radio" id="idk14" name="injection_prevent" value="idk" checked>
+          <input type="radio" id="idk14" name="django_form" value="idk" checked>
           <label for="idk14">I do not know</label>
         </div>
       </div>
     </form>
     <p style="background-color:#eeeeee; border:1px solid black; padding:20px;" class="collapse why">
-        For SQL injection is enough 6 characters, so user has to validate the input thoroughly and before
-        SQL query execution.
+        The right answer is the first one. Django forms are created for easy use and they even contain password validator.
+        This validator prevents from too similar passwords to username or passwords, which contains only numerical or
+        alphabetical characters. They are probably not the most secure thing in the world, but they are certainly more 
+        secure than user-created forms.  
     </p>
 
     <!-- Question 15 -->
@@ -622,13 +624,228 @@ brief: Template for user test
         When attacker steals user's identity he can do whatever he wants. Session can be stolen and it is used
         for such purposes as is sending money to attacker's account or buying stuff with user's credit card.
     </p>
+
+    <h3>Practical questions</h3>
+
+    <!-- Question 16 -->
+    <table class="table table-bordered">
+      <tr>
+        <th class="th_color">Question 16: Which line of code can cause SQL injection?</th>
+      </tr>
+      <tr>
+        <td class="text-center"><img style="width:100%;" src="../static/images/sql_inj.png"></td>
+      </tr>
+    </table>
+    <form style="padding-bottom:30px;">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="sql_inj_1" name="sql_inj" value="a">
+          <label for="sql_inj_1">5</label>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="sql_inj_2" name="sql_inj" value="b">
+          <label for="sql_inj_2">9</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="sql_inj_3" name="sql_inj" value="c">
+          <label class="right" for="sql_inj_3">7</label>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <input type="radio" id="sql_inj_4" name="sql_inj" value="d">
+          <label for="sql_inj_4">10</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <input type="radio" id="idk16" name="sql_inj" value="idk" checked>
+          <label for="idk16">I do not know</label>
+        </div>
+      </div>
+    </form>
+    <p style="background-color:#eeeeee; border:1px solid black; padding:20px;" class="collapse why">
+        It is line 7, where the malicious SQL query is being created. Line 9 only executes the already
+        malicious query.
+    </p>
+
+
+    <!-- Question 17 -->
+    <table class="table table-bordered">
+      <tr>
+        <th class="th_color">Question 17: How can programmer prevent from SQL injection from previous question?</th>
+      </tr>
+      <tr>
+        <td class="text-center"><img style="width:100%;" src="../static/images/sql_inj.png"></td>
+      </tr>
+    </table>
+    <form style="padding-bottom:30px;">
+      <div class="row">
+        <div class="col-12 padding_radio">
+          <input type="radio" id="sql_repair_1" name="sql_repair" value="a">
+          <label for="sql_repair_1">By not executing SQL query.</label>
+        </div>
+        <div class="col-12 padding_radio">
+          <input type="radio" id="sql_repair_2" name="sql_repair" value="b">
+          <label class="right" for="sql_repair_2">By validating user input before SQL query execution.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 padding_radio">
+          <input type="radio" id="sql_repair_3" name="sql_repair" value="c">
+          <label for="sql_repair_3">By changing the HTTP request to PUT.</label>
+        </div>
+        <div class="col-12 padding_radio">
+          <input type="radio" id="sql_repair_4" name="sessiosql_repairn_ID" value="d">
+          <label for="sql_repair_4">By not rendering the data from the query.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <input type="radio" id="idk17" name="sql_repair" value="idk" checked>
+          <label for="idk17">I do not know</label>
+        </div>
+      </div>
+    </form>
+    <p style="background-color:#eeeeee; border:1px solid black; padding:20px;" class="collapse why">
+        The best defence from SQL injection attacks is to validate user input before executing SQL queries.
+        When the input is righly validated, there is no possible thread from SQL injection.
+    </p>
+
+    <!-- Question 18 -->
+    <table class="table table-bordered">
+      <tr>
+        <th class="th_color">Question 18: How can programmer prevent from attack on pickle module?</th>
+      </tr>
+    </table>
+    <form style="padding-bottom:30px;">
+      <div class="row">
+        <div class="col-12 padding_radio">
+          <input type="radio" id="pickle_question_1" name="pickle_question" value="a">
+          <label class="right" for="pickle_question_1">Do not unpickle (deserialize) untrusted data.</label>
+        </div>
+        <div class="col-12 padding_radio">
+          <input type="radio" id="pickle_question_2" name="pickle_question" value="b">
+          <label for="pickle_question_2">Validate incoming data in request.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 padding_radio">
+          <input type="radio" id="pickle_question_3" name="pickle_question" value="c">
+          <label for="pickle_question_3">There is no precaution. Do not use pickle module at all.</label>
+        </div>
+        <div class="col-12 padding_radio">
+          <input type="radio" id="pickle_question_4" name="pickle_question" value="d">
+          <label for="pickle_question_4">Use pickle only with PUT HTTP request.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <input type="radio" id="idk18" name="pickle_question" value="idk" checked>
+          <label for="idk18">I do not know</label>
+        </div>
+      </div>
+    </form>
+    <p style="background-color:#eeeeee; border:1px solid black; padding:20px;" class="collapse why">
+        The most important rule, which is even on official pickle module website is to do not unpickle
+        untrusted data. The pickle module is sometimes very useful, so not using is not an valid option.
+        PUT request does not have anything in common with this topic and validating data is good, but
+        data coming to pickle are usually encrypted, so it is hard to validate them.
+    </p>
+
+    <!-- Question 19 -->
+    <table class="table table-bordered">
+      <tr>
+        <th class="th_color">Question 19: What is wrong with this condition?</th>
+      </tr>
+      <tr>
+        <td class="text-center"><p>if re.match(r’^(([a-z])+.)+[A-Z]([a-z])+$’, str(searched_username)):</p></td>
+      </tr>
+    </table>
+    <form style="padding-bottom:30px;">
+      <div class="row">
+        <div class="col-12 padding_radio">
+          <input type="radio" id="redos_condition_1" name="redos_condition" value="a">
+          <label for="redos_condition_1">Username is not validated before this condition.</label>
+        </div>
+        <div class="col-12 padding_radio">
+          <input type="radio" id="redos_condition_2" name="redos_condition" value="b">
+          <label for="redos_condition_2">Every string with alphabetical letters is valuated true.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 padding_radio">
+          <input type="radio" id="redos_condition_3" name="redos_condition" value="c">
+          <label for="redos_condition_3">Username cannot have numbers in it.</label>
+        </div>
+        <div class="col-12 padding_radio">
+          <input type="radio" id="redos_condition_4" name="redos_condition" value="d">
+          <label class="right" for="redos_condition_4">It is evil regex.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <input type="radio" id="idk19" name="redos_condition" value="idk" checked>
+          <label for="idk19">I do not know</label>
+        </div>
+      </div>
+    </form>
+    <p style="background-color:#eeeeee; border:1px solid black; padding:20px;" class="collapse why">
+        This example is showing evil regular expression in action. If attacker submits input aaaaaaaaaaaaaaaaaaaaaaaaaaa!
+        the validation denies the service of login. It is called ReDoS and there are many forms of evil regexes, which
+        can be found in the guidelines.
+    </p>
+
+
+    <!-- Question 20 -->
+    <table class="table table-bordered">
+      <tr>
+        <th class="th_color">Question 20: What does this line of code do?</th>
+      </tr>
+      <tr>
+        <td class="text-center"><img src="../static/images/bad_comment.png"></td>
+      </tr>
+    </table>
+    <form style="padding-bottom:30px;">
+      <div class="row">
+        <div class="col-12 padding_radio">
+          <input type="radio" id="comment_inj_1" name="comment_inj" value="a">
+          <label for="comment_inj_1">Nothing. It is a comment.</label>
+        </div>
+        <div class="col-12 padding_radio">
+          <input type="radio" id="comment_inj_2" name="comment_inj" value="b">
+          <label class="right" for="comment_inj_2">Executes code from comment.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 padding_radio">
+          <input type="radio" id="comment_inj_3" name="comment_inj" value="c">
+          <label for="comment_inj_3">It highlights return, because keywords are highlighted even in comments.</label>
+        </div>
+        <div class="col-12 padding_radio">
+          <input type="radio" id="comment_inj_4" name="comment_inj" value="d">
+          <label for="comment_inj_4">It shows every character which is placed in this line.</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <input type="radio" id="idk20" name="comment_inj" value="idk" checked>
+          <label for="idk20">I do not know</label>
+        </div>
+      </div>
+    </form>
+    <p style="background-color:#eeeeee; border:1px solid black; padding:20px;" class="collapse why">
+        This is an example of early return due to comment code execution. This can happen because of invisible 
+        unicode character U+2067, which can revert the order of reading from left to right to right to left. It is not
+        only simple comment and no keywords are not highlighted in the comments.
+    </p>
     
     <div style="width:100%; text-align:center;">
         <form>
             <input data-toggle="collapse" data-target="#get_points" class="btn btn-dark" type="button" onclick="get_points()" value="Submit" style="background-color:#777; color:white;">
         </form>
         <div class="collapse" id="get_points">
-            <h2>Your points: <span id="points"></span>/15. Congratulations!</h2>
+            <h2>Your points: <span id="points"></span>/20. Congratulations!</h2>
             <button class="btn btn-dark" onclick="seeRightAnswers()" data-toggle="collapse" data-target=".why" style="background-color:#777; color:white;">Show right answers</button>
             <button class="btn btn-dark" onclick="location.href='../test/'" style="background-color:#777; color:white;">Refresh</button>
         </div>   

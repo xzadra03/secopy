@@ -62,11 +62,31 @@ function get_points(){
         points++;
     }
     //question 14
-    if(document.querySelector('input[name="injection_prevent"]:checked').value == "a"){
+    if(document.querySelector('input[name="django_form"]:checked').value == "a"){
         points++;
     }
     //question 15
     if(document.querySelector('input[name="session_ID"]:checked').value == "b"){
+        points++;
+    }
+    //question 16
+    if(document.querySelector('input[name="sql_inj"]:checked').value == "c"){
+        points++;
+    }
+    //question 17
+    if(document.querySelector('input[name="sql_repair"]:checked').value == "b"){
+        points++;
+    }
+    //question 18
+    if(document.querySelector('input[name="pickle_question"]:checked').value == "a"){
+        points++;
+    }
+    //question 19
+    if(document.querySelector('input[name="redos_condition"]:checked').value == "d"){
+        points++;
+    }
+    //question 20
+    if(document.querySelector('input[name="comment_inj"]:checked').value == "b"){
         points++;
     }
     storePoints(points);
