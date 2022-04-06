@@ -2,12 +2,12 @@
 # file: urls.py
 # author: Jan Zádrapa, BUT FIT
 # date: 3/2022
-# brief: file, wher URL paths are set and view method is assigned to them
+# brief: file for storing tables of database
 #
 from django.db import models
 from django.contrib.auth.models import User
 
-
+#attributes for new user (database table)
 class New_user(models.Model):
     username = models.CharField(max_length=150)
     email = models.EmailField(max_length=320)

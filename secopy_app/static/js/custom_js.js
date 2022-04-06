@@ -5,8 +5,13 @@
  *  brief: Custom js file for application SeCoPy
  */
 
+/* global counter of points */
 var s_points = 0;
 
+/* 
+    Function for counting right answers in the test in SeCoPy
+    Testing if user clicked on the right radio button and incrementing if true.
+*/
 function get_points(){
     var points = 0
     //question 1
@@ -89,20 +94,21 @@ function get_points(){
     if(document.querySelector('input[name="comment_inj"]:checked').value == "b"){
         points++;
     }
+
     storePoints(points);
 }
 
+//function for writing points into the HTML document
 function storePoints(points){
     s_points = points;
     document.getElementById("points").innerHTML = s_points;
 }
 
-
+//function for changing background colour of right answers on button click
 function seeRightAnswers(){
     const collection = document.getElementsByClassName("right");
+    //go through every right answer and change its background
     for (let i = 0; i < collection.length; i++) {
     collection[i].style.backgroundColor = "lightgreen";
     }
-
-    
 }

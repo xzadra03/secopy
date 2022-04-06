@@ -5,10 +5,12 @@
     date: 3/2022
     brief: custom css for SeCoPy project
 ************************************/
+/* padding of radio buttons in questions */
 .padding_radio{
   padding-left: 15px;
 }
 
+/* color of text in test questions */
 .th_color{
   color:white;
   background-color: #777;

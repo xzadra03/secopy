@@ -20,6 +20,7 @@ brief: Template for logging users
    </head>
    <body style="background-color:#eeeeee;">
 
+    {% comment %} The top with title and buttons {% endcomment %}
     <div class="jumbotron jumbotron-fluid" style="margin-bottom:0px;background-color: #555;color: white;"> 
       <div class="container">
         <div class="row">
@@ -36,7 +37,7 @@ brief: Template for logging users
     
     <div class="container justify-content-center" style="padding-top:30px;">
       <h1>Login:</h1>
-
+      {% comment %} Login Django form {% endcomment %}
       <form method="POST" class="row g-3" style="max-width:600px; padding-top:20px;">
         {% csrf_token %}
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">

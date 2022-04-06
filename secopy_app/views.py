@@ -10,7 +10,6 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import login, logout
 from .forms import CustomUserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib import messages
 
 #requested site theory
 def theory(request):
@@ -30,7 +29,9 @@ def intro(request):
 
 #login validator
 def auth_login(request):
+    #use only POST method for forms
     if request.method == "POST":
+        #create new form
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             user = form.get_user()
@@ -38,16 +39,17 @@ def auth_login(request):
             return redirect("../")
     else:
         form = AuthenticationForm()
+    #render requested page
     return render(request, 'login.html', {'form': form})
 
 #register validator
-def register(request):  
+def register(request):
+    #use only POST method for forms  
     if request.method == 'POST':  
         form = CustomUserCreationForm(request.POST)  
         if form.is_valid():  
             user = form.save()
             login(request, user)
-            messages.success(request, "Registration succesful.")
             return redirect("../")
     else:  
         form = CustomUserCreationForm()  

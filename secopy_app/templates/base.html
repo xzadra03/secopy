@@ -10,6 +10,7 @@ brief: Basic template for SeCoPy, loaded on every site
 <!DOCTYPE html>
 <html>
     <head>
+        {% comment %} style, js and responsive settings {% endcomment %}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}">
@@ -21,6 +22,7 @@ brief: Basic template for SeCoPy, loaded on every site
     </head>
 
     <body>
+        {% comment %} Top of the site (title and login/logout buttons) {% endcomment %}
         <div class="jumbotron jumbotron-fluid" style="margin-bottom:0px; background-color: #555; color: white;"> 
             <div class="container">
                 <div class="row">
@@ -28,6 +30,7 @@ brief: Basic template for SeCoPy, loaded on every site
                         <h1 class="display-4">SeCoPy</h1>
                         <p class="lead">Secure Coding in Python</p>
                     </div>
+                    {% comment %} Django condition for authentication {% endcomment %}
                     {% if request.user.is_authenticated %}
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" style="text-align: right;">
                         <p>Hello, {{ user }}</p>
@@ -46,7 +49,10 @@ brief: Basic template for SeCoPy, loaded on every site
             </div>
         </div>
     
-        {% comment %} From https://stackoverflow.com/questions/26317679/how-to-add-hamburger-menu-in-bootstrap {% endcomment %}
+        {% comment %} 
+        From https://stackoverflow.com/questions/26317679/how-to-add-hamburger-menu-in-bootstrap 
+        For mobile devices
+        {% endcomment %}
         <nav class="navbar navbar-inverse navbar-static-top hidden-sm hidden-md hidden-lg" role="navigation" style="background-color:#555; position:sticky; top:0;">
             <div class="container">
               <div class="navbar-header">
@@ -70,6 +76,7 @@ brief: Basic template for SeCoPy, loaded on every site
             </div>
         </nav>
         
+        {% comment %} Standard side navigation menu {% endcomment %}
         <div class="container mt-0">
             <div class="row">
                 <div class="col-sm-4 col-md-4 col-lg-4 hidden-xs" style="position:sticky; top:0;">

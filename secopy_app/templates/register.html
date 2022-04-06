@@ -20,7 +20,7 @@ brief: Template for registering users
       <title>SeCoPy</title>
    </head>
    <body style="background-color:#eeeeee;">
-
+    {% comment %} The top with title and buttons {% endcomment %}
     <div class="jumbotron jumbotron-fluid" style="margin-bottom:0px;background-color: #555;color: white;"> 
       <div class="container">
         <div class="row">
@@ -35,6 +35,7 @@ brief: Template for registering users
       </div>
     </div>
 
+    {% comment %} Registration form {% endcomment %}
     {% block content %} 
     <div class="container justify-content-center" style="padding-top:30px;">
       <h1>Registration:</h1>
