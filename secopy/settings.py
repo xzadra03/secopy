@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
-import django_heroku
 from pathlib import Path
 from xmlrpc.client import INTERNAL_ERROR
 
@@ -30,7 +29,7 @@ SECRET_KEY = 'django-insecure-yqm=ri-c6ju(&i8_sc68b^07fnm(o#n)@*ls255tis5fss@udp
 DEBUG = 'True'
 
 ALLOWED_HOSTS = [
-    'heroku-secopy.herokuapp.com'
+    'secopy.herokuapp.com'
 ]
 
 
@@ -139,4 +138,4 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #heroku setting
-django_heroku.settings(locals())
+#django_heroku.settings(locals())
