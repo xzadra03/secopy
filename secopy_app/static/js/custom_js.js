@@ -83,7 +83,7 @@ function get_points(){
         points++;
     }
     //question 18
-    if(document.querySelector('input[name="pickle_question"]:checked').value == "a"){
+    if(document.querySelector('input[name="pickle_question"]:checked').value == "c"){
         points++;
     }
     //question 19
@@ -111,4 +111,9 @@ function seeRightAnswers(){
     for (let i = 0; i < collection.length; i++) {
     collection[i].style.backgroundColor = "lightgreen";
     }
+}
+
+//function for focusing images on click
+function focusOnClick(){
+    
 }

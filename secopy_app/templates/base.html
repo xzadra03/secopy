@@ -86,7 +86,7 @@ brief: Basic template for SeCoPy, loaded on every site
                                 Home
                             </button>
                             <li class="mb-1">
-                                <button onclick="location.href='../theory'" class="btn btn-toggle align-items-center rounded collapsed" data-toggle="collapse" data-target=".theory" style="background-color:#cccccc; width:85%; height:50px; color:black;">
+                                <button onclick="location.href='../theory'" class="btn btn-toggle align-items-center rounded" style="background-color:#cccccc; width:85%; height:50px; color:black;">
                                     Theory
                                 </button>
                                 <div class="theory" id="theory-collapse">
@@ -100,7 +100,7 @@ brief: Basic template for SeCoPy, loaded on every site
                                 </div>
                             </li>
                             <li class="mb-1">
-                                <button onclick="location.href='../test'" class="btn btn-toggle align-items-center rounded collased" data-toggle="collapse" data-target=".tests" style="background-color:#cccccc; width:85%; height:50px; color:black;">
+                                <button onclick="location.href='../test'" class="btn btn-toggle align-items-center rounded" style="background-color:#cccccc; width:85%; height:50px; color:black;">
                                     Test
                                 </button>
                                 <div class="tests" id="test-collapse">
@@ -120,9 +120,13 @@ brief: Basic template for SeCoPy, loaded on every site
                     </div>
                 </div>
                 {% block content %}{% endblock content %}
-        {% comment %} These two divs have to be in contents of other templates because of footer
+            </div>
         </div>
-        </div> 
-        {% endcomment %}
+        
+        <footer>
+          <div class="text-center p-3" style="background-color: #555; padding-top:30px; padding-bottom:30px; color:white;">
+              ©2022 BUT FIT
+          </div>
+        </footer>
     </body>
 </html>

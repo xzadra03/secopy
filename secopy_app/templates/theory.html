@@ -105,7 +105,7 @@ brief: File which contains guidelines for SeCoPy
           </ul>
 
           <div class="text-center">
-            <img src="../static/images/nist_logo.jpg" alt="NIST logo">
+            <img style="width:100%;" src="../static/images/nist_logo.jpg" alt="NIST logo">
           </div>
 
           <p>It is enough to know for our purpose that each sector is creating standards</p>
@@ -136,66 +136,94 @@ brief: File which contains guidelines for SeCoPy
     </br></br>
 
      <div id="basics">
-       <h2>Basics</h2>
-       <p>There are some important basics that needs to be shown to the programmer. They consist more of a right Python settings than some coding examples. Setting Python right can prevent many possible vulnerabilities.</p>
+       <h2>Secure Coding Guidelines for Python</h2>
+       <p>This chapter aims to teach the reader the secure ways of coding in Python with the guidelines.
+        Guidelines begin with basics like using the latest version of Python. The more reader goes into this
+        chapter, the more complex vulnerabilities are introduced. Every section of guidelines includes examples
+        of bad or good practices with an explanation. The guidelines themselves are divided into three different parts.
+        The first one is called Basics and contains basics that every programmer in Python should know.
+        The second part is called the Standard library and contains vulnerabilities, which are part of the Python
+        standard library (no third-party module), plus a couple of efficient and secure coding techniques.
+        The last part is all about web programming and OWASP Top 10 because web programming is very popular these
+         days. The section contains the rest of the OWASP Top 10, which was not mentioned in previous section.
+        </p>
+        
+      <h3>Basics</h3>
+      <p>Some essential basics need to be shown to the programmer. They consist more of the correct Python settings than
+         some coding examples. Setting Python right can prevent many possible vulnerabilities.
+
+
        <h3>Version of Python</h3>
-       <p>The first basic that programmer needs to have in mind is the right version of Python. Many of the vulnerabilities have been repaired in the newer Python versions. For example in Python version 2.5 exists exploit, where can attacker cause buffer overflow via string in socketmodule.c.</p>
+       <p>The first basic that a programmer needs to have in mind is the correct version of Python. Many of the vulnerabilities have
+          been repaired in the newer Python versions. For example, in Python version 2.5 exists exploit, where can attacker cause a buffer
+           overflow via string in socketmodule.c.</p>
+        <p>Preventing is simple by using the newest stable version of Python. If your company uses Python < 3.0, consider updating the Python version and its dependencies. It is not only more secure, but it is also offering a better user experience.
+        You can check your Python version by typing this command to command line:</p> <pre>$python --version</pre>
        
-       <p>Preventing is simple by using the newest stable version of Python. If your company is using Python < 3.0, consider updating Python version and its dependencies. It is not only more secure, it is also offering better user experience. 
-       You can check your Python version by typing this into your command line:</p> <pre>$python --version</pre>
        <h3>Virtual environment</h3>
-       <p>The safest programming in Python should be in virtual environment. It is recommended to use it, because venv (virtual environment) can assure that Python projects are divided from the folder with Python itself. If project has some malicious modules or other security problems, it is limited only to this project and does not effect other Python projects on this device.</p>
+       <p>The safest programming in Python should be in the virtual environment. It is recommended to use it because venv (virtual environment)
+          can assure that Python projects are divided from the folder with Python itself. If the project has some malicious modules or other
+           security problems, it is limited only to this project and does not affect other Python projects on this device.</p>
+           <p>When a programmer needs to create requirements for a project, it is essential to know which modules need to be downloaded.
+              Another good practice is using a virtual environment to create files with requirements. When working in the virtual environment,
+               the programmer can be sure that only the modules used for the project will be set as required.</p>
+        <p>These two commands can set the virtual environment in desired project, and the third connects the user to the virtual environment:</p>
+
+        <ul>
+          <li>$python3 -m pip install virtualenv</li>
+          <li>$python3 -m venv env</li>
+          <li>$source venv/bin/activate</li>
+        </ul>
+        
        <h3>Importing modules</h3>
-       <p>There are several methods how to import a module in Python. In particular absolute and relative import and implicit and explicit import. The best way to use import is to use absolute import. Example shows how absolute import looks like.</p>
+       <p>There are several methods how to import a module in Python. In particular absolute and relative import and implicit and explicit import. The best way to use import is to use absolute import. Figure below shows what absolute import looks like.</p>
        
        <div class="text-center">
        <img src="../static/images/absolute.png" alt="Absolute module import">
        </div>
        
-       <p>Absolute import assures that programmer imports exactly what he wants. Relative import is from Python 3 on wards only explicit. Implicit import has been removed.</p>
-       
-       <p>For secure module import is recommended to use only absolute import or relative explicit import. Relative import only when programmer is importing from his own Python files. It is not recommended using relative import when importing third party modules.</p>
-       
-       <p>The second problem with modules is that we do not need all from the module. We usually need only some of the functions or classes. In Python exists many ways how to import particular parts of modules. The best way how to import module is to specify class and function by absolute import.</p>
-       <p>Another way of importing that exists is <i>from sys import *</i>, but that is really insecure way of import. The first problem is that we are importing functions that we do not need and the second problem is that we usually do not know what is in the module. It means that there is probability which is rising with number of modules, that we download module with either malicious function or we overwrite the previous module.</p>
+       <p>Absolute import assures that the programmer imports precisely what he wants. Relative import is from Python 3 onwards only explicit. Implicit import has been removed.</p>       
+       <p>It is recommended to use only absolute import or relative explicit import for secure module import. Relative import is used only when the programmer is importing from his Python files. It is not recommended to use relative import when importing third-party modules as it could import the wrong module because the path to the module is not clear. It also could potentially create problems when changing the project structure.</p>       
+       <p>The second problem with modules is that we do not need everything from the module. We usually need only some of the functions or classes. In Python, exists many ways how to import particular parts of modules. The best way to import a module is to specify class and function by absolute import.</p>
+       <p>Another way of importing that exists is <i>from module import *</i>, but that is an insecure way of importing. The first problem is that we are importing functions that we do not need, and the second problem is that we usually do not know what is in the module. There is a rising probability with the number of modules that we download modules with either malicious methods or overwrite the previous module.</p>
        
        <div class="text-center">
          <img src="../static/images/bad_import.png" alt="Wrong way how to import modules">
        </div>
 
-       <p>On the figure there is comparison between wrong importing, where importing time overwrites module asyncio. It is basic example form standard library, but it is important to show some of the basic mistakes. Both of the modules contains function <i>sleep()</i>. In the wrong example there is no prove that we are calling sleep from time or asyncio. In this case it depends on the latest import, which is time. The example below is better example, where from module time is selected only what is needed. The module asyncio is there only for the showing of no overriding.</p>
+       <p>In figure above, there is an example of wrong importing, where importing time overwrites module asyncio. It is a basic example from the standard library, but it is important to show some basic mistakes. The module asyncio is there only for the showing of no overriding. Both of the modules contain function <i>sleep()</i>. In the bad example, there is no proof that we are calling sleep from time or asyncio. In this case, it depends on the latest import, which is time. Figure below is a better example, where only what is needed is selected from module time.</p>
        
        <div class="text-center">
          <img src="../static/images/best_import.png" alt="The right way how to import modules">
        </div>
 
        <h4>Typosquatting</h4>
-       <p>The last warning in this topic is typo squatting. Typosquatting is kind of an attack that targets heedless programmers. It works like this: programmer writes an import, but makes a typo. Import is still not underlined as a mistake, why? Programmer has just imported a malicious package. Be careful with packages and check after yourself. There are dozens of malicious packages in PyPI. Example, where programmer typed <i>modulee_test</i> instead of <i>module_test</i>. In this example there is called only print, but it could be for example malicious module with system command.</p>
+       <p>The last warning on this topic is typosquatting. Typosquatting is kind of an attack that targets heedless programmers. It works like this: the programmer writes an import but makes a typo. Import is still not underlined as a mistake; why? The programmer has just imported a malicious package. Be careful with packages and check after yourself. There are many malicious packages in PyPI. There is an example where the programmer typed <i>modulee_test</i> instead of <i>module_test</i>. In this example (figure below), there is called only print, but it could be, for example, a malicious module with a system command.</p>
        
        <div class="text-center">
          <img src="../static/images/malicious_module.png" alt="One typo changes everything.">
        </div>
        
        <div class="text-center">
-         <img src="../static/images/mm_output.png" alt="Malicious output.">
+         <img style="width:100%;" src="../static/images/mm_output.png" alt="Malicious output.">
        </div>
 
-       <p>From usable point of view is best practice to divide imports into three categories. The first category are standard library imports, the second are third party imports and the last one is local imports. Each category is sort in alphabetical order.</p>
-     </div>
+      <p>From a usable point of view is the best practice to divide imports into three categories. The first category is standard library imports, the second is third party imports, and the last is local imports. Each category should be sorted in alphabetical order. All things are here in this video.</p>
+      </div>
      
      <div id="standard_lib">
        <h2>Standard Python</h2>
-       <p>In this section I will be dealing with things that are related to the coding itself. They are still basic, but their impact on security is much more significant. I will show some validation techniques and I will compare two main Python validating constructions. Then there will be flaws from the standard library like command injections and path manipulating.</p>
-       <h3>Input validation</h3>
-       <p>The right way of validating user input can assure that the program will be very secure. But there are many practices how to check user input. Some of them are better than others. In this section will be shown the right and most secure way of input validating.</p>
-       <h3>Blacklisting vs. whitelisting</h3>
-       <p>There are two main ways how to validate input. The first is blacklisting. Blacklisting means marking some inputs as forbidden. The main problem of this technique is that it is practically impossible to catch every wrong input because there are theoretically infinite wrong inputs that user can create therefore it is advisable using whitelisting.</p>
-        <p>Whitelisting is a practice when programmer knows what the right input is and checks only the right input. It is more secure and also usable technique because it costs theoretically less conditions and less lines to create. It seems this statement is wrong, but blacklisting costs theoretically infinite number of lines. The most suitable technique for whitelisting is to create a regular expression for the right input. Regular expression (regex) is a sequence of characters that specifies a search pattern in text. Programmer should use regexes because one right regex can cover all the wrong inputs.
-           There is also online regex tool which can be really helpful. Module <i>re</i> assures regular expressions for Python. Python also contains many built-in functions like <i>isdigit()</i> that can check if the string is digit or not.</p>
+       <p>In this section, I will be dealing with things related to the coding itself. I will show some validation techniques and compare two main Python validating constructions. They are still basic, but their impact on security is much more significant. Then there are vulnerabilities from the standard Python library, from which I have chosen the ones that seemed to be quite important to know about, or they are severe.</p>
        
-          <p>Finally, some examples on blacklisting, whitelisting and regular expressions. The goal of these examples is to explain the main differences between these techniques and the importance of the good regular expressions. Regexes are sometimes very hard to code right so I recommend using the online tool mentioned above.</p>
-          <p>In this example the input has to be the string "Hello". First example uses blacklisting and the second one uses whitelisting with some regular expression. Which one looks safer?
-       The example is very simple, but it proves the point because using whitelisting there is only one condition and using blacklisting there are four conditions and still it is not sufficient because word "Hallo" can be written on the output.</p>
+       <h3>Input validation</h3>
+       <p>The right way of validating user input can assure that the program will be very secure. However, there are many practices on how to check user input. Some of them are better than others. This section shows the right and most secure way of input validating.</p>
+       
+       <h3>Blacklisting vs. whitelisting</h3>
+       <p>There are two main ways how to validate input. The first method is blacklisting. Blacklisting means marking some inputs as forbidden. The main problem with this technique is that it is practically impossible to catch every wrong input because there are infinite wrong inputs that users can create. Therefore, it is advisable to use whitelisting.</p>
+       <p>Whitelisting is a practice when the programmer knows the correct input and checks only the correct input. It is a more secure and usable technique because it theoretically costs fewer conditions and fewer lines to create. It seems this statement is wrong, but blacklisting costs a theoretically infinite number of lines. The most suitable technique for whitelisting is to create a regular expression for the correct input. Regular expressions (regexes) are patterns used to match character combinations in strings. Programmers should use regexes because one right regex can cover all the wrong inputs. Module <i>re</i> assures regular expressions for Python. Python also contains many built-in functions like <i>isdigit()</i> that can check if the string is a digit or not.</p>
+       <p>Finally, some examples of blacklisting, whitelisting and regular expressions. The goal of these examples is to explain the main differences between these techniques and the importance of good regular expressions. Regexes are sometimes very hard to code right, so I recommend using the online tool mentioned above.</p>
+       <p>In this example, the input must be the "Hello" string. The first figure below uses blacklisting and the second figure uses whitelisting with some regular expression. Which one looks safer?</p>
+       <p>The example is elementary, but it proves the point because using whitelisting, there is only one condition and using blacklisting, there are four conditions, and still, it is not sufficient because the word "Hallo" can be written on the output.</p>
        
        <div class="text-center">
          <img src="../static/images/blacklisting.png" alt="Bad practise using blacklisting.">
@@ -205,164 +233,176 @@ brief: File which contains guidelines for SeCoPy
        </div>
 
        <h3>Try-except vs. if-else</h3>
-       <p>In Python and other languages exist two main constructions for conditions. Try-except and if-else are used for flow and condition control. They work with similar logic, but the benefits from using one or the other can be quite significant. Try-except is ideal when programmer does not know about all possible errors that can occur. With one conditional block programmer can cover many errors. But it is not without a cost. If-else blocks are more efficient and it is recommended using them when we know possible errors. Try-except is faster when there is less possibility of error, but when the possibility declines, the if-else block becomes faster.</p>
-        <p>When programmer is working with files it is recommended to use try-except block, because when some error happens when opening or closing file and try-except block is present none information are lost. Try-except block works with the system itself. In conclusion it is safer to use try-except block when we are not sure about possible errors or when there is small possibility of some error/exception. In the other cases it is recommended to use if-else block.</p>
+       <p>In Python and other languages, exist two main constructions for conditions. Try-except and if-else are used for flow and condition control. They work with similar logic, but the benefits of using one can be pretty significant. Try-except is ideal when the programmer does not know about all possible errors that can occur. With one conditional block programmer can cover many errors. However, it is not without a cost. If-else blocks are more efficient than try-except blocks, it is recommended to use them when we know possible errors. The try-except block is better to use when there is less possibility of error, but the if-else block becomes more efficient when the possibility arises.</p>
+       <p>When the programmer is working with files, it is recommended to use the try-except block because when some error happens when opening or closing a file and the try-except block is present, no information is lost. Try-except block works with the system itself. In conclusion, it is safer to use the try-except block when we are unsure about possible errors or when there is little possibility of some error/exception. In the other cases, it is recommended to use the if-else block.</p>
        
        <h3>Standard library flaws</h3>
-       <p>Flaws are in every aspect of programming languages. The first area which I would like to mention is standard library. In the standard library there are many modules, classes and functions. Among them are some functions which require caution. There is a possible injection, path changing also we have to be cautious when working with files and logs. There is a lot of topics for this subsection.</p>
+       <p>Flaws are in every aspect of programming languages. The first area which I would like to mention is the standard library. In the standard library, there are many modules, classes and functions. Among them are some methods which require caution. There is a possible injection and path changing; also, we have to be cautious when working with files and logs. There are many topics for this subsection.</p>
        
        <h3>Temporary files - <i>mktemp()</i></h3>
-       <p>Sometimes it is necessary to create temporary files when coding a program. In Python exists special module for this problem and it is called <i>tempfile</i>. It is a part of standard library. This module seems secure except one function <i>mktemp()</i>. Function <i>mktemp()</i> has been deprecated since Python 2.3, but it is still in the module. The advise is not to use the function works like this. Function creates link with absolute path to non existent file at that time. Before your program starts working with this path and creates real file, somebody else can steal this path and do whatever he wants with it. More precisely with created file.</p>
-        <p>Instead of <i>mktemp()</i> use <i>mkstemp()</i> which is more secure or you can use function <i>tempfile.TemporaryFile()</i> like in example below.</p>
+       <p>Sometimes it is necessary to create temporary files when coding a program. In Python, a special module exists for this problem called <i>tempfile</i>. It is a part of the standard library. This module seems secure except for one function <i>mktemp()</i>. Function <i>mktemp()</i> has been deprecated since Python 2.3, but it is still in the module. It works like this: Function creates a link with an absolute path to a non-existent file. Before your program starts working with this path and creates the actual file, somebody else can steal this path and do whatever he wants with it, more precisely with the created file. The advice is not to use the function.</p>
+       <p>Instead of <i>mktemp()</i> use <i>mkstemp()</i> which is more secure or you can use function <i>tempfile.TemporaryFile()</i> like on figure below.</p>
        
        <div class="text-center">
          <img src="../static/images/tempfile.png" alt="Proper creating of temporary file.">
        </div>
 
        <h3>Pickle module</h3>
-       <p>Python module pickle is used for serializing or de-serializing data from other sources. It can be used for sending or receiving object state. Pickle is converting byte streams to object structure and vise-versa. The vulnerability lies in the byte string, which is not formatted and it is prone to outside code execution.</p>
+       <p>Python module pickle is used for serializing or de-serializing data from other sources. It can be used for sending or receiving object states. Pickle is converting byte streams to object structure and vice-versa. The vulnerability lies in the byte string, which is not formatted and prone to outside code execution.</p>
        The best solution for this vulnerabilities are:
        <ul>
            <li>do not pickle or unpickle data from untrusted sources</li>
            <li>use HMAC or other algorithms for ensuring integrity of data</li>
            <li>use JSON instead of pickle</li>
        </ul>
-       Examples could be found <a href="https://lincolnloop.com/blog/playing-pickle-security/">here</a>.
+       <p>This vulnerability is thoroughly explored in <a href="../theory#others">this</a> section.</p> 
        
        <h3>Command injection (exec, eval, input, os)</h3>
-       <p>These built-in functions are vulnerable against the same problem. Command injection is a problem when attacker can execute code through other function or code. Problem occurs when programmer does not sanitize user's input. These selected functions are the most used ones, so they will be described and given solution.</p>
-       <p>Eval is function which evaluates given expression through Python evaluating rules. It can be used for evaluating number expressions and so on. Return value is value from evaluated expression. Exec is a built-in function for executing Python code. Both of these functions face same problem with user input. Solution for right using of these functions is validating user input and not giving the input right into these functions. The third function is a little bit different.</p>
-       <p>Function input reads user input and puts it into variable. In Python 2.x was possible create exploit like this:</p>
+       <p>These built-in functions are vulnerable to the same problem. Command injection is a problem when the attacker can execute code through other functions or codes. The problem occurs when the programmer does not sanitize the user's input. These selected functions are the most used ones, so they will be described and given a solution.</p>
+       <p>Eval is a function that evaluates a given expression through Python evaluating rules. It can be used for evaluating number expressions. The return value is a value from the evaluated expression. Exec is a built-in function for executing Python code. Both of these functions face the same problem with user input. The solution for the proper use of these functions is validating user input and not giving the input right into these functions. The third function is a little bit different.</p>
+       <p>Function input reads user input and puts it into a variable. In Python 2.x was possible to create an exploit like on figure below:</p>
        
        <div class="text-center">
-         <img src="../static/images/comm_inj_code.png" alt="Input exploit.">
+         <img style="width:100%;" src="../static/images/comm_inj_code.png" alt="Input exploit.">
        </div>
        <div class="text-center">
-         <img src="../static/images/comm_inj_out.png" alt="Python 3 has covered this exploit.">
+         <img style="width:100%;" src="../static/images/comm_inj_out.png" alt="Python 3 has covered this exploit.">
        </div>
 
-       <p>This is fixed now, but for someone using older Python version (not recommended) it could be still a problem. Function input from version 3.0 converts input into the string that is the reason why in Python 3 is the condition false, but in Python 2.x is true because function converted given input as a variable. It means that the condition is for Python 2.x something like <i>var password == var password</i> which is true.</p>
-        <p>Another functions which are frequently used are from os module. The most dangerous function is <i>os.system()</i> which uses only single string argument that is executed as command. That opens code for vulnerabilities therefore it is not recommended to use this function at all. And if it is necessary, check the argument is valid and be sure that it is really what you want to execute. Recommended function to execute commands is <i>subprocess.function()</i>. But there is also vulnerability if programmer sets argument <i>shell=True</i>. This means that argument can be in one string. Recommended tactic is give argument to function as a list and set shell to false.</p>
+       <p>This vulnerability is fixed now, but it could still be a problem for someone using an older Python version (not recommended). Function input from version 3.0 converts input into the string. That is why in Python 3 is, the condition false. However, in Python 2.x is true because the function evaluated given input as a variable. It means that the condition is for Python 2.x something like <i>var password == var password</i> which is true.</p>
+       <p>Other functions which are frequently used are from the os module. The most dangerous function is the <i>os.system()</i>, which uses only a single string argument executed as a command. That opens code for vulnerabilities; therefore, it is not recommended to use this function at all. Furthermore, if necessary, check that the argument is valid and be sure that the input is what you want to execute. Recommended function to execute commands is <i>subprocess.function()</i> (Figure below). However, there is also vulnerability if the programmer sets the argument <i>shell=True</i>. This setting means that the argument can be in one string. The recommended tactic gives an argument function as a list and sets the shell to false.</p>
        
        <div class="text-center">
-         <img src="../static/images/subprocess.png" alt="The right way of executing command.">
+         <img style="width:100%;" src="../static/images/subprocess.png" alt="The right way of executing command.">
        </div>
 
        <h3>Regular expressions</h3>
-       <p>Even if regular expressions are efficient tool when checking user input, they are vulnerable against ReDoS attack. This attack uses algorithmic complexity against program. Complexity of regular expression can be up to 2^m that means some expressions would take with each character exponentially to evaluate. Thus programmer has to be careful when using regexes. There are some regexes that are forbidden due to its evaluation complexity against inputs like <i>aaaaaaaaaaaaaaaaaaaaaaaaaaa!</i>. List of evil regexes can be found here.</p>
+       <p>Even if regular expressions are an efficient tool when checking user input, they are vulnerable to ReDoS attacks. This attack uses algorithmic complexity against the program. The complexity of regular expression can be up to 2^m, which means some expressions would take exponential time to evaluate. Thus programmer has to be careful when using regexes. Some regexes are forbidden due to their evaluation complexity against inputs like <i>aaaaaaaaaaaaaaaaaaaaaaaaaaa!</i>. A list of evil regexes can be found later in the text.</p>
        
        <h3>String formatting</h3>
-       <p>String formatting in Python also has its own problems. They are not problems like in chapter 3 where is memory the main problem, but bad string formatting can cause can cause leak of data. Through <i>str.format()</i> can attacker see internal parts of objects or some sensitive data.</p>
-       <p>The best solution is to check user input using whitelisting or do not have user input at all. Other solutions include using "old" style formatting. That type of formatting is similar to C string formatting and it is relatively secure. Its cons are smaller clarity and longer code. Other solutions are to use f-strings (Python 3.6+) or template stings from standard library.</p>
+       <p>String formatting in Python also has its problems. They are not problems like in C language, where memory is the main problem, but bad string formatting can cause a data leak — detailed explanation on this website. Through <i>str.format()</i>, an attacker can see internal parts of objects or sensitive data.</p>
+       <p>The best solution is to check user input using whitelisting or not having user input. Other solutions include using "old" style formatting. That type of formatting is similar to C string formatting, and it is relatively secure. Its cons are smaller clarity and longer code. Other solutions are to use f-strings (Python 3.6+) or template stings from the standard library.</p>
        
        <h3>XML</h3>
-       <p>Sometimes it is needed XML input to proper working program. There are several Python modules which can help with XML. Problem is that every XML Python module out there is vulnerable against two types of attacks. The first one is called Billion laughs attack and the second one The Quadratic blowup. The best practise here is using package defusedxml. Defusedxml is created to prevent especially these two attacks.</p>
+       <p>Sometimes is needed XML input to create a properly working program. Several Python modules can help with XML. The problem is that every XML Python module is vulnerable to two types of attacks. The first one is called Billion laughs attack, and the second one is The Quadratic blowup.</p>
+       <p>Billion laughs attack, as in figure below, is constructed from ten entities. Every entity consists of "lol" strings, which call other defined lol elements. With this calling, one file size of about one kB needs up to several GBs of memory when executed. The Quadratic blowup attack uses the same formula of calling entities and creating DoS using too much memory.</p>
        
-       
+       <div class="text-center">
+        <img style="width:100%;" src="../static/images/xml_attack.png" alt="A million laughs attack.">
+       </div>
+
+       <p>These attacks have been known for decades, and there is only one solution. The best practice here is using the package defusedxml. Defusedxml is created to prevent especially these two attacks. Other XML Python modules do not cover these two vulnerabilities.</p>
+
        <h3>Random</h3>
-       <p>Generating numbers can be more secure than with standard random from standard library. Its algorithm is quite predictable. Use module with <i>secret.random()</i> instead. All the more if programmer is using generator for secret or encrypted needs.</p>
-       
+       <p>In Python, a module called random is used to generate pseudorandom numbers. This module is not very secure because its algorithm is quite predictable, and there are crackers and guessers available on the internet for free. Its primary purpose is to be used for general purposes, not encrypting and security. Please, do not use it for these purposes.</p>
+       <p>For secure pseudorandom number generation use module secrets instead. This module can ensure a secure token generator and many other number generators.</p>
+
+
        <h3>Assert</h3>
-       <p>Assert comes very handy in testing, because programmer can assume with this statement that the assertion is true and if it is not Python raise assertion error. But assert should be used only in testing, because having assertion in production code is vulnerability. Assert can be carried out only if Python's variable <i>__debug__</i> is set to true. Even if the variable is set to true  does not mean that in every environment on every device is set to true. Out of this problem can raise problem where interpret skips part of the code or executes part of the code that should not be executed. It can created undefined behavior.</p>
-       
+       <p>Assert comes very handy in testing because the programmer can assume with this statement that the assertion is true, and if it is not, Python raises an assertion error. However, assert should be used only in testing because having assertions in production code is vulnerable. Assert can be carried out only if Python's variable <i>__debug__</i> is set to true. This variable should be set to true only in development. Even if the variable is set to true in production does not mean that every environment on every device is the same.</p>
+       <p>Furthermore, the variable should be set in production to false. This situation can raise problems where the Python interpret skips part of the code or executes part of the code that should not be executed. It can create undefined behaviour.</p>
+       <p>Figure below from shows the wrong usage of assert. In this example, assert tests if the user has superuser privileges. In testing, everything runs smoothly, but in production Python interpreter removes assertion, and the assert condition will be skipped, giving all users superuser privileges.</p>
+       <p>The best practice is to use assert only in a testing environment. When going to production, be sure that all of the assertions are removed or do not affect the functionality of the code or its security (authorisation, authentication, and others).</p>
+
+       <div class="text-center">
+        <img src="../static/images/assert.png" alt="Assertion error.">
+       </div>
+
        <h3>Tarfile and zipfile</h3>
-       <p>Tarfile is module for extracting archives. Programmer should avoid using tarfile when extracting from untrusted sources. In the archive could be file with absolute path containing .. or / which can cause problem because functions in tarfile can not handle that. Use module tarsafe instead.</p>
-        <p>The second problem with archive files is so called "zip bomb". This bomb has one goal. Crush the host's system or program by decompressing small file containing amount of data bigger than host's memory. Programmer can defend setting and checking maximum size of decompressed data and maximum number of files. This <a href="https://www.bamsoftware.com/hacks/zipbomb/">link</a> shows .zip files having a few kilobytes compressed but after decompression they needs terabytes of free space.</p>
-     </div>
+       <p>Tarfile is a module for extracting archives. Programmers should avoid using tarfile when extracting from untrusted sources. The archive could be a file with an absolute path containing .. or /, which can cause problems because functions in tarfile can not handle that. Use module tarsafe instead.</p>
+       <p>The second problem with archive files is the so-called "zip bomb". This bomb has one goal. Crush the host's system or program by decompressing a small file containing more data than the host's memory. Programmers can defend by setting and checking the maximum size of decompressed data and the maximum number of files. This link shows .zip files having a few kilobytes compressed, but they need terabytes of free space after decompression. This exploit of extracting files has been solved, but it is good to mention that programmers should be cautious even nowadays when extracting .zip files.</p>
+      </div>
        
      <div id="web_program">
        <h2>Web programming</h2>
-       <p>This part of coding is very popular these days. Most of the world depends on internet and web applications are the best way how to do things on the internet. But every sun creates a shade. Web applications are vulnerable against many types of attacks. Problem with web applications is that they store sensitive data about users, their passwords and so on. This section should introduce the worst web programming vulnerabilities and their solution.</p>
+       <p>This part of coding is popular these days. Most of the world depends on the internet, and web applications are the best way how to build user-friendly access to the internet. However, every sun creates a shade. The problem with web applications is that they store sensitive data about users, their passwords and others. Web applications are vulnerable to many types of attacks. This section should introduce the worst web programming vulnerabilities and their solution.</p>
        
+       <h3>Python frameworks for web programming</h3>
+       <p>Web development was long about languages like PHP and HTML, CSS and JavaScript. This rule does not apply these days when there are several good frameworks (light-weighted or full-stack), even for Python. HTML, CSS and JavaScript are still essential for web development, but web development is more accessible to the public overall. Django is the framework that I used for examples and educational tools.</p>
+       <p>The best practice is to use one of these frameworks because they have already implemented security features like Django forms for registering users. They are also user-friendly and easy to use. The recommended one is the Django framework because I have been using Django for some time now, and its simplicity is breathtaking. Developing web applications on your own could be hazardous and create many vulnerabilities, the worst of which are described below.</p>
+
        <h3>OWASP Top 10</h3>
-       <p>This section is focused on OWASP Top 10 for Python. Not every item on the list is suitable for guidelines for Python. Therefore only these selected items will be described.</p>
+       <p>OWASP Top 10, as it was said in the section about standards, is the list of web applications' most severe vulnerabilities. These vulnerabilities below are a problem even for the Python frameworks mentioned above. This section is focused on the rest of the vulnerabilities that have not been described yet.</p>
        
        <h3>Broken access control</h3>
-       <p>The most common exploit is called Broken access control. This exploit appeared in 318 thousands web apps that were tested. This number shows how many vulnerable applications are there, whilst it is known that this exploit can be very dangerous.</p>
-       <p>The attacker can bypass access control by modifying the HTML page or the URL of the site, or modifying internal application state. This can cause elevation of privilege which is acting as user when not logged or as admin when not logged as admin and so on. Other problems that BAC can cause are metadata manipulation, cookie manipulation or force browsing to authenticated pages as unauthorized user. We can defend effectively only in trusted server-side code or server-less API, where the attacker cannot modify the access control check or metadata.</p>
-       
+       <p>The most common exploit is called Broken access control. This exploit appeared in 318 thousand web apps that were tested. This number shows how many vulnerable applications are there, whilst it is known that this exploit can be very dangerous.</p>
+       <p>The attacker can bypass access control by modifying the HTML page or the site's URL or modifying the internal application state. This attack can cause elevation of privilege, which is acting as the user when not logged or as admin when not logged as admin. Other problems that Broken access control can cause are metadata manipulation, cookie manipulation or force browsing to authenticated pages as an unauthorized user.</p>
+       <pre>https://example.com/accounts/details?id=123&password=abcdefg</pre>
+       <p>Example above is a URL with visible request parameters. There is one thing wrong and one that should be secured. The wrong thing is a non-encrypted password. The password must be encrypted in requests or the URL address. The second one is that the attacker can modify parameters to malicious values and send the request. So the first advice is that every request has to be validated. Values and authorization rights need to be correct. The prevention is to encrypt requests in the browser and validate the parameters. It is also good practice to limit the number of requests for users as it helps defend against automatic tools.</p>
+
+
        <h3>Cryptographic failures</h3>
-       <p>Second-largest exploit is not a root cause, but more of a symptom. The main problem with cryptography is that it use to be broken and data are visible in the transmission. That is why we have to check if we transmit data in right format and encrypted and check what kind of encryption we use. Personal information has to be encrypted due to EU privacy laws (GDPR).</p>
-        <p>The solution is simple. For private data transmission use HTTPS instead of HTTP which is not encrypted. For other types of encrypted communication, such as SMTP, use TLS for encryption. Check if the server is trusted and check for needed certificates. Update encryption methods for methods that are more powerful and secure. If using generated cryptographic keys, be sure that they are meeting requirements. If possible use authenticated encryption, it is better than only encryption.</p>
-          <p>Also if not needed do not store sensitive data. Data that are not stored, can not be stolen.</p>
+       <p>The second-largest exploit is not a root cause but more of a symptom. The main problem with cryptography is that it used to be broken, and data are visible in the transmission. That is why we have to check if we transmit data in the right format and encrypted and check what kind of encryption we use. Personal information has to be encrypted due to EU privacy laws (GDPR).</p>
+       <p>The solution is simple. For private data transmission, use HTTPS instead of HTTP, which is not encrypted. For other types of encrypted communication, such as SMTP, use TLS for encryption. Check if the server is trusted, check for needed certificates, and update encryption methods for more powerful and secure methods. If using generated cryptographic keys, be sure that they are meeting requirements. If possible, use authenticated encryption. It is better than only encryption.</p>
+       <p>Also, if not needed, do not store sensitive data. Data that are not stored can not be stolen.
        
        <h3>Injection</h3>
-       <p>This category was composed of several types of injection including SQL injection, cross site scripting and others. The most common injection is SQL injection that occurs when a programmer, for example, uses credentials directly from an authentication form to perform a SQL query. This bad practise that can even lead to deletion or leaking of whole user database.</p>
-        <p>Preventing this attack is really simple. Do not trust user input. Validate what user wrote and restrict length of input or characters that can user use. When creating a SQL query, use only user input that has gone through validation.</p>
-          <p>Example: user wrote in the field for password 'or 1=1)\# . This string in SQL query expands the query for or 1=1. This part of string means for example log user if 1=1, which is always true. User just breached the system. The lesson from this example is that a programmer should never use user input unverified.</p>
+       <p>This category was composed of several types of injection, including SQL injection, cross-site scripting and others. The most common injection is SQL injection which occurs when a programmer, for example, uses credentials directly from an authentication form to perform a SQL query. This bad practice can even lead to the deletion or leaking of the whole user database. About SQL injection is the whole exploit in later chapter.</p>
+       <p>Cross-site scripting (XSS) is a form of attack which executes the script on the server-side of the application. There are three kinds of XSS attacks:</p>
+       <ul>
+        <li>reflected XSS - from HTTP request (from other website)</li>
+        <li>stored XSS - malicious input into the database</li>
+        <li>DOM-based XSS - on the client-side of the application</li>
+       </ul>
+       <p>Preventing this attack is simple. Do not trust user input. Validate user input and restrict the length of input or characters that users can use. When creating a SQL query, use only user input that has gone through validation. In Django, use the secure Django forms for registration and other tasks. Against XSS attack applies the CSP (Content Security Policy), an HTTP request header that restricts sources from which the server can execute scripts. This header is also available for Python Django, so use it for the security of your application.</p>
        
        <h3>Identification and authentication failures</h3>
-       <p>This category contains every possible way of attack on authentication.</p>
-       <p>The easiest attack to defend from is a brute force attack. It combines random or not random strings that are from database or some other source and tries to authenticate. This type of attack can be defended just by putting number of tries on the form and then trying to send the user a notification on email or something.</p>
-       <p>Another vulnerability is weak password. The form should not accept passwords that do not contain upper-case and lower-case character, number and special character like '*' or '.'. The more complicated password, the lesser the chance of breaching of account.</p>
-       <p>Password has to be transmitted and stored in encrypted form. So as session ID.</p>
-       <p>Weakness is also password recovery that contains safety private questions. This is also not user-friendly, so it is not recommended for using by usability either because users can forget. It is vulnerable against brute force attacks. Sending notification through e-mail is safer.</p>
+       <p>This category contains every possible way to attack authentication.</p>
+       <p>The easiest attack to defend from is a brute force attack. It combines random or not random strings from the database or some other source and tries to authenticate. This type of attack can be defended by putting the number of tries on the form and then blocking the attacker from accessing the form for some time.</p>
+       <p>Another vulnerability is a weak password. The form should not accept passwords that do not contain upper-case and lower-case characters, numbers and special characters like '*' or '.'. It is also not safe to have a password similar to the username. The more complicated password, the lesser the chance of breaching of account. Fortunately, Django has this concern covered with built-in forms and password validator.</p>
+       <p>Password has to be transmitted and stored in encrypted form. So as the session ID. Weakness is also password recovery that contains private safety questions. This recovery is also not user-friendly, so it is not usable because users tend to forget their answers. Safety questions are also vulnerable to brute force attacks. Sending notifications through e-mail is safer.</p>
        
-       
-       <h3>Security logging and monitoring failures</h3>
-       <p>This chapter is kind of hard to understand. It can not be tested at all or very hardly. The problem is that the application should be logging what is doing. Every error, every suspicious activity, change in configuration and so on.</p>
-       <p>The suggestion is that logging is important, and every application should have a log files that are not stored only locally, but on a server as well because logging can save us a lot of troubles when dealing with security problems.</p>
-       
+       </br>
+       Weak passwords: 123456789, abcdefghi, fitvutbrno, password</br>
+       Strong passwords: 94K%-aN8, ]BZ-4b6hZ, crP5Fsg$5, @d@rR5S7b
+
        <h3>Server side request forgery</h3>
-       <p>This can happen when a web application is fetching a remote resource without validation of user supplied URL. This can cause a redirecting to a malicious web or other places even when protected by a firewall, VPN and so on. Server side request forgery is on the rise with new modern web applications that uses user provided URLs.</p>
-       <p>Preventing is again validating user input, disable HTTP redirections and checking consistency of URLs.</p>
-     </div>
+       <p>Server-side request forgery is rising with new modern web applications that use user-provided URLs. Server-side request forgery happens when a web application fetches a remote resource without validating the user-supplied URL. This vulnerability can cause a redirecting to a malicious website or other places even when protected by a firewall or VPN.</p>
+       <pre>
+        https://example.com/page?url=http://127.0.0.1/admin
+        https://example.com/page?url=http://127.0.0.1/phpmyadmin
+       </pre>
+       <p>The prevention against SSRF is about the request and input validation. Like in most vulnerabilities, never trust the user input. A good practice is to whitelist allowed hosts for a particular application and URLs. In Django urls.py file, there is a list of allowed URL paths and in the file settings.py is a list of allowed users.</p>
+      </div>
        
      <div id="others">
       <h2>Real-life exploits</h2>
-      <p>This chapter is about exploits again, but from more detailed view. Some of the examples were shown in previous parts 
-      which are focused on theoretical approach with some examples. Here, in this chapter, will be examples described why is happening what is happening.</p>  
+      This chapter is about exploits again but from a more detailed view. Some examples have been already shown in the guidelines, which focuses on the theoretical approach with some examples. Here, in this chapter, examples will be described and explained. Precisely what is happening in the background and why it is happening.
+
       <h3>SQL Injection</h3>
-      <p>The first exploit I would like to cover is SQL injection. This exploit is very common, but in previous chapter was
-       introduced theoretically. It was created another web application for SQL injection testing and showing to user what
-        it can do.</p>
-        <p>The application itself was again developed in Python Django with some Bootstrap. This application simulates database
-       of users with their details.</p>
+      The first exploit I would like to cover is SQL injection. This exploit is widespread and was introduced theoretically in the previous chapters. I created another web application for showing SQL injection to the user what it could do.</p>
+      The application itself was again developed in Python Django with some Bootstrap. This application simulates a database of users with their details. Here is the database:
+
       <div class="text-center">
         <img style="width:100%;" src="../static/images/fake_database.png" alt="The database of users.">
       </div>
-      It is fully functional, user can add user as he pleases and it will show in the table. Adding is done with help of
-       Django form, so none vulnerabilities should be there. What is important, that the "login" which is on top of the table
-        uses the method <i>raw</i> on executing SQL queries.
-      When user wants to search for user (log in) it must enter the username and password which is then not tested and
-       executes SQL query. The method for searching user looks like this:
+
+      <p>It is fully functional; the user can add users as he pleases, and it will be shown in the table. Adding is done with the help of Django form, so no vulnerabilities should be there. What is important is that the "login" on top of the table uses the method <i>raw()</i> on executing SQL queries.
+      <p>When the user wants to search for the added user (login), it must enter the username and password, which is then not tested and executes SQL query. The method for searching users looks like this:</p>
       
-       <div class="text-center">
+      <div class="text-center">
         <img style="width:100%;" src="../static/images/sql_inj.png" alt="Method with possible SQL injection.">
-        </div>
+      </div>
 
-
-      As was mentioned in guidelines. Input has to be validated and here it is not. That means when user/attacker finds out,
-       he can try exploit the method. In this case it is very easy. Typing one of these inputs to username field breaks the
-        app and user can become any user he wants or he can choose to print all users.  
+      <p>As was mentioned in the guidelines, input has to be validated, and here it is not. When the user/attacker finds out, he can try to exploit the method. In this case, it is straightforward. Typing one of these inputs to the username field breaks the app, and the user can become any user he wants or choose to print all users.</p>
       <ul>
           <li>admin' --</li>
           <li> ' or 1=1--</li>
           <li> [any username]' --</li>
       </ul>
-      The app works as follows. It simulates the login form and the user that is shown is as the one user would log in.
-       The SQL query which executes after clicking on the search/reset button is shown below the user table. When user enters
-        the first item from the list the SQL query would be:
+      <p>The app works as follows. It simulates the login form, and the user that is shown is the one user would log in. The SQL query which executes after clicking on the search/reset button is shown below the user table. When the user enters the first item from the list, the SQL query would be:</p>
       
       <pre>SELECT * FROM user WHERE username = 'admin' --' AND password = ''</pre>
 
-      As you can see, the user is now logged as admin, because typing ' after admin means the end of the string (username)
-       and -- means start of the comment. Everything after these characters does not execute, so the user does not have to
-        enter the password.
-      How to prevent? Just simple answer, use Django forms in the first place. The Django login form does not even allow
-       characters like - be in the username. And its login method can create a session and check the username and password.
-        Do not reinvent a wheel when it is not necessary. If it is not possible to use Django login form then never execute
-         input right from the user. It has been mentioned a few times in these guidelines, but in this case, simply validating
-          the input with the help of regular expressions for example, would stop the SQL injection. It must be said,
-           that cause SQL injection is not as easy as it seems in modern Django, but it is definitely possible.
+      <p>As you can see, the user is now logged as admin because typing ' after admin means the end of the string (username) and - - means the start of the comment. Everything after these characters does not execute, so the user does not have to enter the password.</p>
+      <h4>Solution</h4>
+      <p>It must be said that cause SQL injection is not as easy as it seems in modern Django, but it is possible. It showcases terrible programming techniques that someone could have used somewhere. Even if the Django is relatively safe, there is some need for prevention.</p>
+      <p>How to prevent it? Just a simple answer, use Django forms in the first place. The Django login form does not even allow characters like '-' to be in the username. Moreover, its login method can create a session and check the username and password. Please do not reinvent the wheel when it is not necessary. If it is not possible to use the Django login form, then never execute input right from the user. It has been mentioned a few times in these guidelines, but in this case, simply validating the input with the help of regular expressions, for example, would stop the SQL injection.</p>
+      <p>Also, the string formatting is very crucial here. If the right string formatting was used, the exploit would not be possible. Figure \ref{fig:right_string} shows sting formatting which not allows SQL injection. This formatting creates a server error, but nothing more. With this string formatting, input validation or Django can prevent SQL injection.</p>
+      <pre>query_string = "SELECT * FROM sql_exploit_myuser WHERE username={username} AND password = {password}".format(username=searched_username, password=searched_password)</pre>
       
       <h3>ReDoS</h3>
-      Regular expression denial of services is an interesting attack. I have been using regular expressions for several
-       years and I would not believe if somebody told me that with regexes can user crash whole application or slow it
-        drastically. As was said before there are regular expressions which can cause harm. In this chapter it is appropriate
-         to list them. These expressions are called "evil regexes" and some of them could be in many applications, because
-          they were used to checking usernames and e-mails.
-
+      <p>Regular expression denial of services is an interesting attack. I have been using regular expressions for several years, and I would not believe it if somebody told me that regexes can user crash the whole application or slow it down drastically. As was said before, there are regular expressions that can cause harm. These expressions are called "evil regexes", and some could be in many applications because they were used to check usernames and e-mails. In this chapter, it is appropriate to list them.</p>
       <ul>
           <li>(a+)+</li>
           <li>([a-zA-Z]+)*</li>
@@ -372,777 +412,76 @@ brief: File which contains guidelines for SeCoPy
           <li>^([a-zA-Z0-9])(([-.]|[_]+)?([a-zA-Z0-9]+))*(@){1}[a-z0-9]+[.]{1}(([a-z]{2,3})|([a-z]{2,3}[.]{1}[a-z]{2,3}))$</li>
       </ul>
 
-      The last regex was used for e-mail validation. The one thing these regexes have in common is their vulnerability.
-       This input <i>aaaaaaaaaaaaaaaaaaaaaaaa!</i> causes timeouts and crashes.
-      As an example I added input validation in my web application which simulates the login form and user database.
-       Of course I am using regular expression, because as I have already written, regular expressions are really good helper.
-        The condition is simple yet "effective".   
+      <p>The last regex was used for e-mail validation. The one thing these regexes have in common is their vulnerability. This input <i>aaaaaaaaaaaaaaaaaaaaaaaa!</i> causes timeouts and crashes.</p>
+      <p>For example, I added input validation in my web application which simulates the login form and user database. Of course, I am using a regular expression because, as I have already written, regular expressions are an excellent helper. The condition is simple yet "effective".</p>   
       
-        <div class="text-center">
-          <img style="width:100%;" src="../static/images/redos_exploit.png" alt="Method with possible ReDoS.">
-        </div>      
-      When user types the input <i>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!</i> the app stops responding and the request will
-       never be fulfilled. In some applications timeout will occur and restart would be necessary.
-      Only defence is to avoid using evil regular expressions. On this <a href="https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS">site</a> can programmer found further
-       information about another exploits and so on. I do not want to scare anyone of using regular expressions, but my advice
-        is to be careful and thoroughly test the condition if there is not some evil regular expression.
+      <div class="text-center">
+        <img style="width:100%;" src="../static/images/redos_exploit.png" alt="Method with possible ReDoS.">
+      </div>      
       
+      <p>When the user types the input <i>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!</i> the request is taking forever. When the user wants to create a new request, the previous request must be completed. It means that the server has to be restarted for desired functionality. For example request where username was 6a518sd98a14s98fd198as1d98as1d9! lasted for 296.7 seconds. That is quite a lot. From this point of view, it is quite a powerful attack. Regular expressions are a favourite technique for input validation, and they are very effective when performing a whitelisting validation. So what is the prevention of ReDoS?</p>
+
+      <h4>Prevention</h4>
+      <p>The only defence is to avoid using evil regular expressions. Use of regular expressions is still recommended, but the advice is to be careful and thoroughly test the condition if there is no evil regular expression. It could be tested simply, as shown and explained in the examples above.</p>
       
       <h3>Comment code execution - 'Trojan source'</h3>
-      The best for the last or the latest for the last. This exploit, which has been called in related
-       <a href="https://trojansource.codes/trojan-source.pdf">work</a> Trojan source, is one of the latest examples,
-        that there are still vulnerabilities for many programming languages out there. It was discovered in late 2021
-         and its impact was quite drastic.
-      For this example I prepared small registration and login script in Python. We could pretend that this form or its
-       background is used somewhere even if it is really simple example.
+      <p>This exploit, which has been called in related work Trojan source, is one of the latest examples that there are still vulnerabilities for many programming languages out there. It was discovered in late 2021, and its impact was quite drastic.</p>
+      <p>Its problem is not in exploiting from remote sources but from the inside. It is not a big concern for programs where the insides of the application are unknown to users. To exploit this vulnerability, the attacker has to access the source code. However, it is a different story for open-source applications and online sites such as GitHub, where are these open-source projects usually stored or even public developed.</p>
+      <p>Because this vulnerability is relatively new, it was intentionally put in this chapter for a more detailed introduction. For example, I prepared simple registration and login script in Python. We could pretend that this form or background is used somewhere, even if it is a really simple example. It is an example of an early return due to a return in a comment.</p>
       
        <div class="text-center">
-        <img src="../static/images/early_return.png" alt="Early return due to U+2067.">
+        <img style="width:100%;" src="../static/images/early_return.png" alt="Early return due to U+2067.">
       </div>
-      On the figure above we can see that return is misplaced outside the multi-line comment. This should mean one thing.
-       If the condition is evaluated true method returns and code continues. What is the big deal when it can be seen on
-        the first sight. The big deal is that is the way how the interpreter sees the code. The basic text editor or the
-         GitHub repository with invisible symbols  turn off sees it like can be seen on the figure below.
-         <div class="text-center">
+      
+      <p>In figure above, we can see that return is misplaced outside the multi-line comment. This should mean one thing. If the condition is evaluated true method returns, and the code continues. What is the big deal when it can be seen at first sight? The big deal is that is the way how the interpreter sees the code. The basic text editor or the GitHub repository with invisible symbols turned off sees it like can be seen in figure below.</p>
+      
+      <div class="text-center">
           <img style="width:100%;" src="../static/images/early_return_text.png" alt="Early return due to U+2067 in text editor.">
         </div>
-      All the problems creates the Unicode character U+2067 (Right-to-Left-Isolation). This character is used when it is
-       needed the right to left reading. It is needed for example in Arabic or Hebrew language. Why it might be problem and
-        what it can cause?
-      The biggest problem is that this vulnerability can be exploited not only in Python, but also in languages like C,
-       Java, C++ and many others. The second issue occurs when programmer downloads code from the internet. There are many open
-        source codes out there or pages with some code examples. Because this character could be invisible in code editors,
-         programmer does not have to see the problem and takes malicious code to production.
-      It can cause early returns, early return can cause harm. In example below early returns causes DoS by not enabling user to login.
+      
+      <p>All the problems create the Unicode character U+2067 (Right-to-Left-Isolation). This character is used when there is a need for the right to left reading. This feature is used, for example, in Arabic or Hebrew language. Why might it be a problem, and what it can cause?</p>
+      <p>The biggest problem is that this vulnerability can be exploited in Python and also in languages like C, Java, C++, and many others. It is an issue that occurs when a programmer downloads code from the internet. There are many open-source codes out there or pages with some code examples. Because this character could be invisible in code editors, the programmer does not have to see the problem and takes malicious code to production. On the other hand, the programmer can add this line of code into some open-source project where thousands of lines of code are written, and nobody even notices it, and when they notice, it could be taken only as a simple comment.</p>
+      <p>In examples above, early returns cause DoS by not enabling the user to log in. This early return comment can be put anywhere in the code, so this Figure is only one of the many examples.</p>
+        
       <div class="text-center">
         <img style="width:100%;" src="../static/images/comment_out.png" alt="Output from registration script.">
       </div>
 
-      This output above shows that even if user tries to login to already created account the script does not print the
-       message Login successful! as it should. Even if tried to login as non-existing user the program does not output
-        anything. Everything is caused by DoS from the comment.
-      The prevention is quite simple. Use environments where are invisible characters shown such as Visual studio code,
-       where the default setting is set to show invisible characters. GitHub has already managed to add warning to all
-        of the projects where invisible characters are included. The third advice directly for Python is to use only one-line
-         comments (starts with #). These comments are not vulnerable against Trojan source.
+      <p>This output shows that even if the user tries to log in to an already created account, the script does not print the message ' Login successful!' as it should. Even if you tried to log in as a non-existing user, the program does not output anything. Everything is caused by the comment.</p>
       
+      <h4>Solution</h4>
+      <p>The prevention is quite simple. Use environments where are invisible characters shown, such as Visual studio code, where the default setting is set to show invisible characters. GitHub has already managed to add a warning to all projects where invisible characters are included. The third piece of advice directly for Python is to use only one-line comments (starts with #). These comments are not vulnerable to Trojan source.</p>
+
       <h3>Pickle module</h3>
-      As mentioned in guidelines pickle is Python module used for deserializing and serializing objects from or to byte
-       stream. The problem with pickle is that it does not check the data which are send through the byte stream.
-        The object is usually encrypted by base64 encryption, so it is hard to check for malicious content.
-      In this exploit will be shown how does the pickle work. Then using pickle we create attack, where attacker steals data
-       from server. This application is created using Flask, which is another Python framework for web application.
-        For this example is more suitable because it does not require such preparations as Django. Let's do it then.
-      Pickle has many methods, but for this exploit are important these two and also override of method __reduce__():
+      <p>As mentioned in the guidelines, pickle is a Python module used for deserializing and serializing objects from or to a byte stream. The problem with pickle is that it does not check the data sent through the byte stream. The object is usually encrypted by base64 encryption, so it is hard to check for malicious content.</p>
+      <p>This exploit will be shown how does the pickle works. Then using pickle, we create an attack where the attacker steals data from the server. This application is created using Flask, another Python framework for web applications. For this example is more suitable Flask because it does not require such preparations as Django. Let us do it then.</p>
+      <p>The object is usually encrypted by base64 encryption, so it is hard to check for malicious content.</p>
+      
       <ul>
         <li>dumps() - this method returns byte string of given object</li>
         <li>loads() - this method deserializes byte data to object form</li>
         <li>__reduce__() - this method creates the initial object, which is then modified</li>
       </ul>
-      With these method it is possible to create an object where command can be hidden.
-       The problem is that communication through request is encoded by base64 on the server.
-        So using module base64 we can encrypt the byte string. The goal of this attack is to steals user data from the server.
-         This is how the command, its byte string and then pickle look like:
-      
+
+      <p>These methods make it possible to create an object where the command can be hidden. The problem is that communication through request is encoded by base64 on the server. So using module base64, we can encrypt the byte string. The goal of this attack is to steal user data from the server. This is how the command its byte string and then pickle looks like:</p>
+       
         <pre>command = ('ls -a')</br>return os.system, (command,)</br>\x80\x04\x95\x00\x00\x00\x00\x00\x00\x00\x8c\x05posix\x94\x8c\x06system\x94\x93\x94\x8c\x05ls -a\x94\x85\x94R\x94.'
         </br>b'gASVIAAAAAAAAACMBXBvc2l4lIwGc3lzdGVtlJOUjAVscyAtYZSFlFKULg=='</pre>
       
-      The last pickled string should be sent to the server which then executes the code and shows its content.
-       It could be done by sending it over a cookie as shown <a href="https://maoutis.github.io/writeups/Web%20Hacking/Pickle%20Insecure%20Deserialization/">here</a>.
-      This exploit is created with help of blog post of David Hamann <a href="https://davidhamann.de/2020/04/05/exploiting-python-pickle/">his blogpost</a>.
-       The server looks in request form and unpickles everything which is sent in item 'pickle='. When attacker runs this
-        command, the server responses with list of files and folders.
-
+      <p>The last pickled string should be sent to the server, which executes the code and shows its content. It could be done by sending it over a cookie, as shown <a href="https://maoutis.github.io/writeups/Web%20Hacking/Pickle%20Insecure%20Deserialization/">here</a>.</p>
+      <p>This exploit is created with the help of a blog post by David Hamann <a href="https://davidhamann.de/2020/04/05/exploiting-python-pickle/">here</a>. The server looks in the request form and unpickles everything sent in item 'pickle='. When the attacker runs curl command, the server responds with a list of files and folders.</p>      
       <pre>curl -d "pickled=gASVIAAAAAAAAACMBXBvc2l4lIwGc3lzdGVtlJOUjAVscyAtYZSFlFKULg==" http://127.0.0.1:5000/pickle</pre>
       <div class="text-center">
-        <img src="../static/images/pickle_answer.png" alt="Output from server.">
+        <img style="width:100%;" src="../static/images/pickle_answer.png" alt="Output from server.">
       </div>
 
+      <p>Now it is easy to get the data from the server. If the root rights are needed, there is no problem executing the command line interface and gaining those rights. This example only shows how to get data. If it is rerun with this command <pre> ls -a && cd data && ls -a && cat *.txt'</pre>, the attacker tries to open files in folder data with a .txt ending. Fortunately for him, folder data contains file users.txt with all of the users logged. The attacker has all the usernames now and can continue with other types of attacks. SQL injection on the login form, for example.</p>
+    
+      <h4>Solution</h4>
+      <p>Due to encryption and difficult data validation in the pickle module is very hard to distinguish between normal and malicious data. The only suitable solution or prevention for this problem is not to use a pickle at all. If there is no other possibility than using a pickle, try to use some encrypting algorithm such as HMAC for assuring data integrity. Standard base64 encoding is publicly known, and as shown in the example, it can be misused quite easily.</p>
 
-      Now it is easy to get the data from the server. If the root rights is needed, there is no problem to execute command
-       line interface and gain that rights. This example only shows how to get data. If run again with this command
-      <pre>ls -a && cd data && ls -a && cat *.txt</pre>
-      attacker tries to open files in folder data which have .txt ending. Fortunately for him folder data contains file
-       users.txt with all of the users logged. Attacker has all the usernames now and can continue with other types of
-        attacks. SQL injection on login form, for example.
-      It is only an example. The point is that pickle should not be used or if must be used then with some kind
-       of encryption (HMAC) as it was said it the guidelines. Code to this exploit can be found in downloads in SeCoPy. 
     </div>
    </div>
 
 </div>
-{% comment %} two divs from base.html because of right formatting  {% endcomment %}
-</div>
-</div>
-
-{% comment %}
-\chapter{Secure coding guidelines for Python}
-\label{sec:guidelines}
-This chapter aims to teach the reader the secure ways of coding in Python with the guidelines. Guidelines begin with basics like using the latest version of Python. The more reader goes into this chapter, the more complex vulnerabilities are introduced. Every section of guidelines includes examples of bad or good practices with an explanation. The guidelines themselves are divided into three different parts. The first one is called Basics and contains basics that every programmer in Python should know. The second part is called the Standard library and contains vulnerabilities, which are part of the Python standard library (no third-party module), plus a couple of efficient and secure coding techniques. The last part is all about web programming and OWASP Top 10 because web programming is very popular these days. The section contains the rest of the OWASP Top 10, which was not mentioned in Chapter~\ref{sec:standards}.
-\section{Basics}
-Some essential basics need to be shown to the programmer. They consist more of the correct Python settings than some coding examples. Setting Python right can prevent many possible vulnerabilities.
-\subsection{Version of Python}
-The first basic that a programmer needs to have in mind is the correct version of Python. Many of the vulnerabilities have been repaired in the newer Python versions. For example, in Python version 2.5 exists exploit, where can attacker cause a buffer overflow via string in socketmodule.c~\cite{vuln_version}.
-Preventing is simple by using the newest stable version of Python. If your company uses Python < 3.0, consider updating the Python version and its dependencies. It is not only more secure, but it is also offering a better user experience.
-You can check your Python version by typing this command to command line:
-%DO NOT WRITE DOLLAR IF YOU WANT TO KNOW NORMOSTRANY
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language={Bash}]
-python3 --version
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{Checking the version of Python.}
-\label{fig:python_vers}
-\end{figure}
-
-\subsection{Virtual environment}
-The safest programming in Python should be in the virtual environment. It is recommended to use it because venv (virtual environment) can assure that Python projects are divided from the folder with Python itself. If the project has some malicious modules or other security problems, it is limited only to this project and does not affect other Python projects on this device.\\
-When a programmer needs to create requirements for a project, it is essential to know which modules need to be downloaded. Another good practice is using a virtual environment to create files with requirements. When working in the virtual environment, the programmer can be sure that only the modules used for the project will be set as required.\\
-These two commands can set the virtual environment in desired project, and the third connects the user to the virtual environment:
-\begin{enumerate}
-    \item \$python3 -m pip install virtualenv
-    \item \$python3 -m venv env
-    \item \$source venv/bin/activate
-\end{enumerate}
-
-\subsection{Importing modules}
-There are several methods how to import a module in Python~\cite{python_import}. In particular absolute and relative import and implicit and explicit import. The best way to use import is to use absolute import. Figure~\ref{fig:absolute} shows what absolute import looks like.
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language={Python}]
-from sys import stdin
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{Absolute import.}
-\label{fig:absolute}
-\end{figure}
-Absolute import assures that the programmer imports precisely what he wants. Relative import is from Python 3 onwards only explicit. Implicit import has been removed.\\
-It is recommended to use only absolute import or relative explicit import for secure module import. Relative import is used only when the programmer is importing from his Python files. It is not recommended to use relative import when importing third-party modules as it could import the wrong module because the path to the module is not clear. It also could potentially create problems when changing the project structure.\\
-The second problem with modules is that we do not need everything from the module. We usually need only some of the functions or classes. In Python, exists many ways how to import particular parts of modules. The best way to import a module is to specify class and function by absolute import.\\
-Another way of importing that exists is \emph{from module import *}, but that is an insecure way of importing. The first problem is that we are importing functions that we do not need, and the second problem is that we usually do not know what is in the module. There is a rising probability with the number of modules that we download modules with either malicious methods or overwrite the previous module.
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=Python]
-from asyncio import *
-from time import *
-
-print("Hello " + str(time()))
-sleep(1)
-print("After " + str(time()))
-sleep(2)
-print("End " + str(time()))
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{Wrong import with overriding.}
-\label{fig:wrong_import}
-\end{figure}
-In Figure~\ref{fig:wrong_import}, there is an example of wrong importing, where importing time overwrites module asyncio. It is a basic example from the standard library, but it is important to show some basic mistakes. The module asyncio is there only for the showing of no overriding. Both of the modules contain function \emph{sleep()}. In the bad example, there is no proof that we are calling sleep from time or asyncio. In this case, it depends on the latest import, which is time. Figure~\ref{fig:better_import} is a better example, where only what is needed is selected from module time.\\
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=Python]
-from time import time, sleep
-import asyncio 
-
-print("Hello " + str(time()))
-sleep(1)
-print("After " + str(time()))
-sleep(2)
-print("End " + str(time()))
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{Importing only what is needed.}
-\label{fig:better_import}
-\end{figure}
-The last warning on this topic is typosquatting~\cite{typo_squat}. Typosquatting is kind of an attack that targets heedless programmers. It works like this: the programmer writes an import but makes a typo. Import is still not underlined as a mistake; why? The programmer has just imported a malicious package. Be careful with packages and check after yourself. There are many malicious packages in PyPI~\cite{pypi_mal}. There is an example where the programmer typed \emph{modulee\_test} instead of \emph{module\_test}. In this example (Figure~\ref{fig:mal_module}), there is called only print, but it could be, for example, a malicious module with a system command.
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=Python]
-import modulee_test
-import module_test
-
-#malicious module
-modulee_test.test_print()
-#secure module
-module_test.test_print()
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{One typo changes everything.}
-\label{fig:mal_module}
-\end{figure}
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=Bash]
-honza$ python3 modules.py
-Malicious module!
-Safe module!
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{Output from the code above.}
-\label{fig:mal_module_out}
-\end{figure}
-From a usable point of view is the best practice to divide imports into three categories. The first category is standard library imports, the second is third party imports, and the last is local imports. Each category should be sorted in alphabetical order. All things are here in this video~\cite{import_usage}.
-
-\section{Standard Python}
-In this section, I will be dealing with things related to the coding itself. I will show some validation techniques and compare two main Python validating constructions. They are still basic, but their impact on security is much more significant. Then there are vulnerabilities from the standard Python library, from which I have chosen the ones that seemed to be quite important to know about, or they are severe.
-\subsection{Input validation}
-The right way of validating user input can assure that the program will be very secure. However, there are many practices on how to check user input. Some of them are better than others. This section shows the right and most secure way of input validating.~\cite{white_vs_black}.
-\subsubsection{Blacklisting vs. whitelisting}
-There are two main ways how to validate input. The first method is blacklisting. Blacklisting means marking some inputs as forbidden. The main problem with this technique is that it is practically impossible to catch every wrong input because there are infinite wrong inputs that users can create. Therefore, it is advisable to use whitelisting.\\
-Whitelisting is a practice when the programmer knows the correct input and checks only the correct input. It is a more secure and usable technique because it theoretically costs fewer conditions and fewer lines to create. It seems this statement is wrong, but blacklisting costs a theoretically infinite number of lines. The most suitable technique for whitelisting is to create a regular expression for the correct input. Regular expressions (regexes) are patterns used to match character combinations in strings~\cite{regular_definition}. Programmers should use regexes because one right regex can cover all the wrong inputs. There is also an online regex tool that can be helpful~\cite{online_regex}. Module \emph{re} assures regular expressions for Python~\cite{regex_man}. Python also contains many built-in functions like \emph{isdigit()} that can check if the string is a digit or not.\\
-Finally, some examples of blacklisting, whitelisting and regular expressions. The goal of these examples is to explain the main differences between these techniques and the importance of good regular expressions. Regexes are sometimes very hard to code right, so I recommend using the online tool mentioned above~\cite{online_regex}.\\
-In this example, the input must be the "Hello" string. Figure~\ref{fig:blacklist} uses blacklisting and Figure~\ref{fig:whitelist} uses whitelisting with some regular expression. Which one looks safer?
-The example is elementary, but it proves the point because using whitelisting, there is only one condition and using blacklisting, there are four conditions, and still, it is not sufficient because the word "Hallo" can be written on the output.
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=Python]
-#blacklisting, trying to catch all mistakes
-if len(input_text) == 5:
-    if not input_text.isdigit():
-        if input_text.startswith("H"):
-            if input_text.endswith("o"):
-                #insufficient...can print Hallo
-                print(input_text)
-            else:
-                print("Wrong ending.")
-        else:
-            print("Wrong beginning.")
-    else:
-        print("Error, includes digits.")
-else:
-    print("Wrong length.")
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{Bad practise using blacklisting.}
-\label{fig:blacklist}
-\end{figure}
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=Python]
-import re
-#whitelisting with regex
-if re.search("^Hello$", input_text):
-    print(argv[1])
-else:
-    print("Wrong input.")
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{Good practice using whitelisting with regex.}
-\label{fig:whitelist}
-\end{figure}
-
-
-\subsubsection{Try-except vs. if-else}
-In Python and other languages, exist two main constructions for conditions. Try-except and if-else are used for flow and condition control. They work with similar logic, but the benefits of using one can be pretty significant. Try-except is ideal when the programmer does not know about all possible errors that can occur. With one conditional block programmer can cover many errors. However, it is not without a cost. If-else blocks are more efficient than try-except blocks, it is recommended to use them when we know possible errors. The try-except block is better to use when there is less possibility of error, but the if-else block becomes more efficient when the possibility arises~\cite{if_vs_try_1, if_vs_try_2}.\\
-When the programmer is working with files, it is recommended to use the try-except block because when some error happens when opening or closing a file and the try-except block is present, no information is lost. Try-except block works with the system itself. In conclusion, it is safer to use the try-except block when we are unsure about possible errors or when there is little possibility of some error/exception. In the other cases, it is recommended to use the if-else block.
-
-\subsection{Standard library flaws}
-Flaws are in every aspect of programming languages. The first area which I would like to mention is the standard library. In the standard library, there are many modules, classes and functions. Among them are some methods which require caution. There is a possible injection and path changing; also, we have to be cautious when working with files and logs. There are many topics for this subsection~\cite{standard_flaws1, standard_flaws2}.
-
-\subsubsection{Temporary files - \emph{mktemp()}}
-Sometimes it is necessary to create temporary files when coding a program. In Python, a special module exists for this problem called \emph{tempfile}~\cite{tempf_lib}. It is a part of the standard library. This module seems secure except for one function \emph{mktemp()}. Function \emph{mktemp()} has been deprecated since Python 2.3, but it is still in the module. It works like this: Function creates a link with an absolute path to a non-existent file. Before your program starts working with this path and creates the actual file, somebody else can steal this path and do whatever he wants with it, more precisely with the created file. The advice is not to use the function.
-Instead of \emph{mktemp()} use \emph{mkstemp()} which is more secure or you can use function \emph{tempfile.TemporaryFile()} like on Figure~\ref{fig:tempfile}~\cite{tempf_lib}.
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=Python]
-import tempfile
-
-file = tempfile.TemporaryFile()
-file.write(b"This is temporary file.")
-file.seek(0)
-print(file.read())
-file.close()
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{Proper creating of temporary file.}
-\label{fig:tempfile}
-\end{figure}
-
-\subsubsection{Pickle module}
-Python module pickle is used for serializing or de-serializing data from other sources~\cite{pickle}. It can be used for sending or receiving object states. Pickle is converting byte streams to object structure and vice-versa. The vulnerability lies in the byte string, which is not formatted and prone to outside code execution.\\
-The best solution for this vulnerability is:
-\begin{itemize}
-    \item do not pickle or unpickle data from untrusted sources
-    \item use HMAC or other algorithms for ensuring integrity of data
-    \item use JSON instead of pickle
-\end{itemize}
-This vulnerability is thoroughly explored in chapter \ref{sec:exploits}. 
-
-\subsubsection{Command injection (exec, eval, input, os)}
-These built-in functions are vulnerable to the same problem. Command injection is a problem when the attacker can execute code through other functions or codes. The problem occurs when the programmer does not sanitize the user's input. These selected functions are the most used ones, so they will be described and given a solution~\cite{command_inj}.\\
-Eval is a function that evaluates a given expression through Python evaluating rules. It can be used for evaluating number expressions. The return value is a value from the evaluated expression~\cite{eval_exec_input}. Exec is a built-in function for executing Python code~\cite{eval_exec_input}. Both of these functions face the same problem with user input. The solution for the proper use of these functions is validating user input and not giving the input right into these functions. The third function is a little bit different.\\
-Function input reads user input and puts it into a variable~\cite{eval_exec_input}. In Python 2.x was possible to create an exploit like this~\ref{fig:comm_inj_code}:\\
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=Python]
-password = "something"
-input_password = input("Please enter your password: ")
-if password == input_password:
-    print("Logged!")
-else:
-    print("Incorrect password!")
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{Input exploit.}
-\label{fig:comm_inj_code}
-\end{figure}
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=Bash]
-honza$ python command_inj.py
-Please enter your password: password
-Logged!
-
-honza$ python3 command_inj.py
-Please enter your password: password
-Incorrect password!
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{Python 3 has patched this exploit.}
-\label{fig:comm_inj_out}
-\end{figure}
-This vulnerability is fixed now, but it could still be a problem for someone using an older Python version (not recommended). Function input from version 3.0 converts input into the string. That is why in Python 3 is, the condition false. However, in Python 2.x is true because the function evaluated given input as a variable. It means that the condition is for Python 2.x something like \emph{var password == var password} which is true.\\
-Other functions which are frequently used are from the os module~\cite{os_module}. The most dangerous function is the \emph{os.system()}, which uses only a single string argument executed as a command. That opens code for vulnerabilities; therefore, it is not recommended to use this function at all. Furthermore, if necessary, check that the argument is valid and be sure that the input is what you want to execute. Recommended function to execute commands is \emph{subprocess.function()} (Figure~\ref{fig:subprocess}). However, there is also vulnerability if the programmer sets the argument \emph{shell=True}. This setting means that the argument can be in one string. The recommended tactic gives an argument function as a list and sets the shell to false.
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=Python]
-subprocess.Popen(['nslookup', hostname], ... , shell=False)
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{The right way of executing commands.}
-\label{fig:subprocess}
-\end{figure}
-
-\subsubsection{Regular expressions}
-Even if regular expressions are an efficient tool when checking user input, they are vulnerable to ReDoS attacks~\cite{redos_owasp}. This attack uses algorithmic complexity against the program. The complexity of regular expression can be up to $2^m$, which means some expressions would take exponential time to evaluate. Thus programmer has to be careful when using regexes. Some regexes are forbidden due to their evaluation complexity against inputs like \emph{aaaaaaaaaaaaaaaaaaaaaaaaaaa!}. A list of evil regexes can be found here~\cite{redos_owasp} or later in this thesis in chapter~\ref{sec:exploits}.\\
-
-\subsubsection{String formatting}
-String formatting in Python also has its problems. They are not problems like in chapter~\ref{section:buffer}, where memory is the main problem, but bad string formatting can cause a data leak — detailed explanation on this website~\cite{string_format}. Through \emph{str.format()}, an attacker can see internal parts of objects or sensitive data.\\
-The best solution is to check user input using whitelisting or not having user input. Other solutions include using "old" style formatting. That type of formatting is similar to C string formatting, and it is relatively secure. Its cons are smaller clarity and longer code. Other solutions are to use f-strings (Python 3.6+) or template stings from the standard library~\cite{string_format_good}.
-
-\subsubsection{XML}
-Sometimes is needed XML input to create a properly working program. Several Python modules can help with XML. The problem is that every XML Python module is vulnerable to two types of attacks. The first one is called Billion laughs attack, and the second one is The Quadratic blowup~\cite{XML}.\\
-Billion laughs attack, as in Figure~\ref{fig:lol_attack}, is constructed from ten entities. Every entity consists of "lol" strings, which call other defined lol elements. With this calling, one file size of about one kB needs up to several GBs of memory when executed. The Quadratic blowup attack uses the same formula of calling entities and creating DoS using too much memory.\\
-\begin{figure}[h]
-\begin{lstlisting}[language=XML]
-<?xml version="1.0"?>
-<!DOCTYPE lolz [
- <!ENTITY lol "lol">
- <!ELEMENT lolz (#PCDATA)>
- <!ENTITY lol1 "&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;">
- <!ENTITY lol2 "&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;">
- <!ENTITY lol3 "&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;">
- <!ENTITY lol4 "&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;">
- <!ENTITY lol5 "&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;">
- <!ENTITY lol6 "&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;">
- <!ENTITY lol7 "&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;">
- <!ENTITY lol8 "&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;">
- <!ENTITY lol9 "&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;">
-]>
-<lolz>&lol9;</lolz>
-\end{lstlisting}
-\caption{Example of million laughs attacks XML.}
-\label{fig:lol_attack}
-\end{figure}
-These attacks have been known for decades, and there is only one solution. The best practice here is using the package defusedxml. Defusedxml is created to prevent especially these two attacks~\cite{defused_XML}. Other XML Python modules do not cover these two vulnerabilities.
-
-\newpage
-\subsubsection{Random}
-In Python, a module called random is used to generate pseudorandom numbers. This module is not very secure because its algorithm is quite predictable, and there are crackers and guessers available on the internet for free. Its primary purpose is to be used for general purposes, not encrypting and security. Please, do not use it for these purposes~\cite{standard_flaws1}.\\
-For secure pseudorandom number generation use module secrets instead~\cite{secret}. This module can ensure a secure token generator and many other number generators.
-
-\subsubsection{Assert}
-Assert comes very handy in testing because the programmer can assume with this statement that the assertion is true, and if it is not, Python raises an assertion error. However, assert should be used only in testing because having assertions in production code is vulnerable. Assert can be carried out only if Python's variable \emph{\_\_debug\_\_} is set to true. This variable should be set to true only in development. Even if the variable is set to true in production does not mean that every environment on every device is the same.\\
-Furthermore, the variable should be set in production to false. This situation can raise problems where the Python interpret skips part of the code or executes part of the code that should not be executed. It can create undefined behaviour~\cite{standard_flaws2, assert}.\\
-Figure~\ref{fig:assert_error} from~\cite{assert} shows the wrong usage of assert. In this example, assert tests if the user has superuser privileges. In testing, everything runs smoothly, but in production Python interpreter removes assertion, and the assert condition will be skipped, giving all users superuser privileges.
-The best practice is to use assert only in a testing environment. When going to production, be sure that all of the assertions are removed or do not affect the functionality of the code or its security (authorisation, authentication, and others).
-
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=Python]
-def check_permission(super_user):
-	try:
-		assert(super_user)
-		print("\nYou are a super user\n")
-	except AssertionError:
-		print(f"\nNot a Super User!!!\n")
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{This assertion could break the authorization control.}
-\label{fig:assert_error}
-\end{figure}
-
-
-\subsubsection{Tarfile and zipfile}
-Tarfile is a module for extracting archives~\cite{tarfile}. Programmers should avoid using tarfile when extracting from untrusted sources~\cite{standard_flaws2}. The archive could be a file with an absolute path containing .. or /, which can cause problems because functions in tarfile can not handle that. Use module tarsafe instead.\\
-The second problem with archive files is the so-called "zip bomb"~\cite{zip_bomb}. This bomb has one goal. Crush the host's system or program by decompressing a small file containing more data than the host's memory. Programmers can defend by setting and checking the maximum size of decompressed data and the maximum number of files. This link~\cite{zip_bomb} shows .zip files having a few kilobytes compressed, but they need terabytes of free space after decompression. This exploit of extracting files has been solved, but it is good to mention that programmers should be cautious even nowadays when extracting .zip files.
-
-\section{Web programming}
-This part of coding is popular these days. Most of the world depends on the internet, and web applications are the best way how to build user-friendly access to the internet. However, every sun creates a shade. The problem with web applications is that they store sensitive data about users, their passwords and others. Web applications are vulnerable to many types of attacks. This section should introduce the worst web programming vulnerabilities and their solution.
-
-\subsection{Python frameworks for web programming}
-Web development was long about languages like PHP and HTML, CSS and JavaScript. This rule does not apply these days when there are several good frameworks (light-weighted or full-stack), even for Python. HTML, CSS and JavaScript are still essential for web development, but web development is more accessible to the public overall. Django is the framework that I used for examples and educational tools. For other frameworks, visit this website~\cite{web_frameworks}.\\
-The best practice is to use one of these frameworks because they have already implemented security features like Django forms for registering users. They are also user-friendly and easy to use. The recommended one is the Django framework because I have been using Django for some time now, and its simplicity is breathtaking~\cite{django}. Developing web applications on your own could be hazardous and create many vulnerabilities, the worst of which are described below. 
-
-
-\subsection{OWASP Top 10}
-OWASP Top 10, as it was said in Chapter~\ref{sec:standards}, is the list of web applications' most severe vulnerabilities. These vulnerabilities below are a problem even for the Python frameworks mentioned above. This section is focused on the rest of the vulnerabilities that have not been described yet.
-
-\subsubsection{Broken access control}
-The most common exploit is called Broken access control. This exploit appeared in 318 thousand web apps that were tested. This number shows how many vulnerable applications are there, whilst it is known that this exploit can be very dangerous.
-The attacker can bypass access control by modifying the HTML page or the site's URL or modifying the internal application state. This attack can cause elevation of privilege, which is acting as the user when not logged or as admin when not logged as admin. Other problems that Broken access control can cause are metadata manipulation, cookie manipulation or force browsing to authenticated pages as an unauthorized user.~\cite{owasp_BAC}.\\
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=HTML]
-https://example.com/accounts/details?id=123&password=abcdefg
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{URL with visible request parameters.}
-\label{fig:BAC_example}
-\end{figure}
-Figure 5 is a URL with visible request parameters. There is one thing wrong and one that should be secured. The wrong thing is a non-encrypted password. The password must be encrypted in requests or the URL address. The second one is that the attacker can modify parameters to malicious values and send the request. So the first advice is that every request has to be validated. Values and authorization rights need to be correct. The prevention is to encrypt requests in the browser and validate the parameters. It is also good practice to limit the number of requests for users as it helps defend against automatic tools.
-
-\subsubsection{Cryptographic failures}
-The second-largest exploit is not a root cause but more of a symptom. The main problem with cryptography is that it used to be broken, and data are visible in the transmission. That is why we have to check if we transmit data in the right format and encrypted and check what kind of encryption we use. Personal information has to be encrypted due to EU privacy laws (GDPR)~\cite{owasp_crypto}.\\
-The solution is simple. For private data transmission, use HTTPS instead of HTTP, which is not encrypted. For other types of encrypted communication, such as SMTP, use TLS for encryption. Check if the server is trusted, check for needed certificates, and update encryption methods for more powerful and secure methods. If using generated cryptographic keys, be sure that they are meeting requirements. If possible, use authenticated encryption. It is better than only encryption.
-Also, if not needed, do not store sensitive data. Data that are not stored can not be stolen.
-
-\subsubsection{Injection}
-This category was composed of several types of injection, including SQL injection, cross-site scripting and others. The most common injection is SQL injection which occurs when a programmer, for example, uses credentials directly from an authentication form to perform a SQL query. This bad practice can even lead to the deletion or leaking of the whole user database. About SQL injection is the whole exploit in Chapter~\ref{sec:exploits}.\\
-Cross-site scripting (XSS) is a form of attack which executes the script on the server-side of the application. There are three kinds of XSS attacks:
-\begin{itemize}
-    \item reflected XSS - from HTTP request (from other website)
-    \item stored XSS - malicious input into the database
-    \item DOM-based XSS - on the client-side of the application
-\end{itemize}
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=HTML]
-<script>function(something)</script>
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{HTML script example.}
-\label{fig:XSS_example}
-\end{figure}
-Preventing this attack is simple. Do not trust user input. Validate user input and restrict the length of input or characters that users can use. When creating a SQL query, use only user input that has gone through validation~\cite{owasp_inj}. In Django, use the secure Django forms for registration and other tasks. Against XSS attack applies the CSP (Content Security Policy), an HTTP request header that restricts sources from which the server can execute scripts. This header is also available for Python Django~\cite{django_csp}, so use it for the security of your application.
-
-\subsubsection{Identification and authentication failures}
-This category contains every possible way to attack authentication.
-The easiest attack to defend from is a brute force attack. It combines random or not random strings from the database or some other source and tries to authenticate. This type of attack can be defended by putting the number of tries on the form and then blocking the attacker from accessing the form for some time~\cite{owasp_id}.\\
-Another vulnerability is a weak password. The form should not accept passwords that do not contain upper-case and lower-case characters, numbers and special characters like '*' or '.'. It is also not safe to have a password similar to the username. The more complicated password, the lesser the chance of breaching of account. Fortunately, Django has this concern covered with built-in forms and password validator.\\
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=Bash]
-Weak passwords: 123456789, abcdefghi, fitvutbrno, password
-Strong passwords: 94K%-aN8, ]BZ-4b6hZ, crP5Fsg$5, @d@rR5S7b
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{Passwords comparison.}
-\label{fig:passwords}
-\end{figure}
-Password has to be transmitted and stored in encrypted form. So as the session ID. Weakness is also password recovery that contains private safety questions. This recovery is also not user-friendly, so it is not usable because users tend to forget their answers. Safety questions are also vulnerable to brute force attacks. Sending notifications through e-mail is safer.
-
-\subsubsection{Server side request forgery}
-Server-side request forgery is rising with new modern web applications that use user-provided URLs. Server-side request forgery happens when a web application fetches a remote resource without validating the user-supplied URL. This vulnerability can cause a redirecting to a malicious website or other places even when protected by a firewall or VPN.~\cite{owasp_ssrf}.\\
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=Bash]
-https://example.com/page?url=http://127.0.0.1/admin
-https://example.com/page?url=http://127.0.0.1/phpmyadmin
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{Examples of redirecting to a admin page on the localhost.}
-\label{fig:ssrf_redirect}
-\end{figure}
-The prevention against SSRF is about the request and input validation. Like in most vulnerabilities, never trust the user input. A good practice is to whitelist allowed hosts for a particular application and URLs. In Django urls.py file, there is a list of allowed URL paths and in the file settings.py is a list of allowed users.
-
-\section{Others}
-These guidelines could have had dozens of pages, but only the three most concerning sections were mentioned. Other vulnerabilities can be found here~\cite{cve_list}. Some vulnerabilities have been already patched versions ago, but others have not been patched yet. All the info is available on the link mentioned before.
-\begin{itemize}
-    \item executing code from comments (mentioned here \ref{sec:exploits})
-    \item urlib.parse exploits
-    \item ipaddress zero characters in the octets exploit
-\end{itemize}
-
-\chapter{Real-life exploits}
-\label{sec:exploits}
-This chapter is about exploits again but from a more detailed view. Some examples have been already shown in Chapter~\ref{sec:guidelines}, which focuses on the theoretical approach with some examples. Here, in this chapter, examples will be described and explained. Precisely what is happening in the background and why it is happening.
-
-\section{SQL Injection}
-The first exploit I would like to cover is SQL injection. This exploit is widespread and was introduced theoretically in the previous chapters. I created another web application for showing SQL injection to the user what it could do.\\
-The application itself was again developed in Python Django with some Bootstrap. This application simulates a database of users with their details. Here is the database~\ref{fig:fake_data}.
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=15cm]{obrazky-figures/fake_database.png}
-    \caption{Database of users.}
-    \label{fig:fake_data}
-\end{figure}
-It is fully functional; the user can add users as he pleases, and it will be shown in the table. Adding is done with the help of Django form, so no vulnerabilities should be there. What is important is that the "login" on top of the table uses the method \emph{raw()} on executing SQL queries.
-When the user wants to search for the added user (login), it must enter the username and password, which is then not tested and executes SQL query. The method for searching users looks like this:
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=Python]
-def results(request):
-        searched_username = request.GET.get('search_text')
-        searched_password = request.GET.get('search_pass')
-        if searched_username == "" and searched_password == "":
-            query =  MyUser.objects.raw("SELECT * FROM sql_exploit_myuser")
-        else:
-            query_string = "SELECT * FROM sql_exploit_myuser 
-            WHERE username = '%s' 
-            AND password = '%s'" % (searched_username, searched_password)
-            
-            query = MyUser.objects.raw(query_string)
-        return render(request, 'index.html', {'data': query})
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{SQL handling function.}
-\label{fig:sql_handling}
-\end{figure}
-The function is a little bit edited because of the \LaTeX formatting.
-As was mentioned in the guidelines, input has to be validated, and here it is not. When the user/attacker finds out, he can try to exploit the method. In this case, it is straightforward. Typing one of these inputs to the username field breaks the app, and the user can become any user he wants or choose to print all users.
-\begin{itemize}
-    \item admin' --
-    \item ' or 1=1--
-    \item $[$any username$]$' --
-\end{itemize}
-The app works as follows. It simulates the login form, and the user that is shown is the one user would log in. The SQL query which executes after clicking on the search/reset button is shown below the user table. When the user enters the first item from the list, the SQL query would be~\ref{fig:sql_admin}:\\
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=SQL]
-SELECT * FROM user WHERE username = 'admin' --' AND password = ''
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{SQL injection, user is the admin now.}
-\label{fig:sql_admin}
-\end{figure}
-As you can see, the user is now logged as admin because typing ' after admin means the end of the string (username) and - - means the start of the comment. Everything after these characters does not execute, so the user does not have to enter the password.\\
-\subsection{Solution}
-It must be said that cause SQL injection is not as easy as it seems in modern Django, but it is possible. It showcases terrible programming techniques that someone could have used somewhere. Even if the Django is relatively safe, there is some need for prevention.\\
-How to prevent it? Just a simple answer, use Django forms in the first place. The Django login form does not even allow characters like '-' to be in the username. Moreover, its login method can create a session and check the username and password. Please do not reinvent the wheel when it is not necessary. If it is not possible to use the Django login form, then never execute input right from the user. It has been mentioned a few times in these guidelines, but in this case, simply validating the input with the help of regular expressions, for example, would stop the SQL injection.\\
-Also, the string formatting is very crucial here. If the right string formatting was used, the exploit would not be possible. Figure \ref{fig:right_string} shows sting formatting which not allows SQL injection. This formatting creates a server error, but nothing more. With this string formatting, input validation or Django can prevent SQL injection.
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=Python]
-query_string = "SELECT * FROM sql_exploit_myuser WHERE username={username}
-AND password = {password}".format(username=searched_username,
-password=searched_password)
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{Better string format.}
-\label{fig:right_string}
-\end{figure}
-
-
-\section{ReDoS}
-Regular expression denial of services is an interesting attack. I have been using regular expressions for several years, and I would not believe it if somebody told me that regexes can user crash the whole application or slow it down drastically. As was said before, there are regular expressions that can cause harm. These expressions are called "evil regexes", and some could be in many applications because they were used to check usernames and e-mails. In this chapter, it is appropriate to list them.
-\begin{itemize}
-    \item (a+)+
-    \item ([a-zA-Z]+)*
-    \item (a|aa)+
-    \item (a|a?)+
-    \item (.*a){x} for x \textbackslash\textgreater 10
-    \item \^([a-zA-Z0-9])(([\-.]|[\_]+)?([a-zA-Z0-9]+))*\\(@){1}[a-z0-9]+[.]{1}(([a-z]{2,3})|([a-z]{2,3}[.]{1}[a-z]{2,3}))\$
-\end{itemize}
-The last regex was used for e-mail validation~\cite{redos_owasp}. The one thing these regexes have in common is their vulnerability. This input \emph{aaaaaaaaaaaaaaaaaaaaaaaa!} causes timeouts and crashes.
-For example, I added input validation in my web application which simulates the login form and user database. Of course, I am using a regular expression because, as I have already written, regular expressions are an excellent helper. The condition is simple yet "effective".   
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=Python]
-#testing redos - yes it works:
-#aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa! should be enough
-if re.match(r'^(([a-zA-Z0-9])+)+$', str(searched_username)):
-    query_string = "SELECT * FROM sql_exploit_myuser WHERE username = '%s'
-    AND password = '%s'" % (searched_username, searched_password)
-    
-    query = MyUser.objects.raw(query_string)
-else:
-    return render(request, 'index.html', {'data': query})
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{Input validation with evil regex.}
-\label{fig:evil_regex}
-\end{figure}
-When the user types the input \emph{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!} the request is taking forever. When the user wants to create a new request, the previous request must be completed. It means that the server has to be restarted for desired functionality. For example request where username was 6a518sd98a14s98fd198as1d98as1d9! lasted for 296.7 seconds. That is quite a lot. From this point of view, it is quite a powerful attack. Regular expressions are a favourite technique for input validation, and they are very effective when performing a whitelisting validation. So what is the prevention of ReDoS?\\
-\subsection{Prevention}
-The only defence is to avoid using evil regular expressions. Use of regular expressions is still recommended, but the advice is to be careful and thoroughly test the condition if there is no evil regular expression. It could be tested simply, as shown and explained in the examples above. On this site~\cite{redos_owasp}, the programmer can find further information about other exploits.
-
-\section{Comment code execution - 'Trojan source'}
-This exploit, which has been called in related work Trojan source~\cite{trojansource_work}, is one of the latest examples that there are still vulnerabilities for many programming languages out there. It was discovered in late 2021, and its impact was quite drastic.\\
-Its problem is not in exploiting from remote sources but from the inside. It is not a big concern for programs where the insides of the application are unknown to users. To exploit this vulnerability, the attacker has to access the source code. However, it is a different story for open-source applications and online sites such as GitHub, where are these open-source projects usually stored or even public developed.\\
-Because this vulnerability is relatively new, it was intentionally put in this chapter for a more detailed introduction. For example, I prepared simple registration and login script in Python. We could pretend that this form or background is used somewhere, even if it is a really simple example. It is an example of an early return due to a return in a comment.
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=Python]
-'''user wants to login to system'''
-    def login(self):
-        print("Attempt to login: ")
-        check_user = input("Type your username: ")
-        check_pass = input("Type your password: ")
-    
-        print(self.users)
-        
-        for user in Form.users:
-            if check_user == user["username"] and
-            check_pass == user["password"]:
-                '''If it is user in database then login and<@ \textcolor{red}{RLI}@>''';return
-                print("Login successful")
-                '''Login method or something'''
-                return
-            else:
-                pass
-            
-        print("Unknown credetials!")
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{The return is weirdly placed.}
-\label{fig:trojan_source}
-\end{figure}
-In Figure~\ref{fig:trojan_source}, we can see that return is misplaced outside the multi-line comment. This should mean one thing. If the condition is evaluated true method returns, and the code continues. What is the big deal when it can be seen at first sight? The big deal is that is the way how the interpreter sees the code. The basic text editor or the GitHub repository with invisible symbols turned off sees it like can be seen in Figure~\ref{fig:trojan_source_int}.
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=Python]
-'''If it is user in database then login and<@ \textbf{return;}@>'''
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{How the text editor sees it.}
-\label{fig:trojan_source_int}
-\end{figure}
-All the problems create the Unicode character U+2067 (Right-to-Left-Isolation). This character is used when there is a need for the right to left reading. This feature is used, for example, in Arabic or Hebrew language. Why might it be a problem, and what it can cause?\\
-The biggest problem is that this vulnerability can be exploited in Python and also in languages like C, Java, C++, and many others. It is an issue that occurs when a programmer downloads code from the internet. There are many open-source codes out there or pages with some code examples. Because this character could be invisible in code editors, the programmer does not have to see the problem and takes malicious code to production. On the other hand, the programmer can add this line of code into some open-source project where thousands of lines of code are written, and nobody even notices it, and when they notice, it could be taken only as a simple comment.\\
-In example~\ref{fig:trojan_source}, early returns cause DoS by not enabling the user to log in. This early return comment can be put anywhere in the code, so this Figure is only one of the many examples.
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=Bash]
-Attempt to login:
-Type your username: HOnza
-Type your password: 123
-
-Users:
-[{'username': 'Admin', 'password': 'admin'},
-{'username': 'HOnza', 'password': '123'}]
-Program ended.
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{Denial of services because of blocked login.}
-\label{fig:trojan_source_out}
-\end{figure}
-This output~\ref{fig:trojan_source_out} shows that even if the user tries to log in to an already created account, the script does not print the message ' Login successful!' as it should. Even if you tried to log in as a non-existing user, the program does not output anything. Everything is caused by the comment.\\
-\subsection{Solution}
-The prevention is quite simple. Use environments where are invisible characters shown, such as Visual studio code, where the default setting is set to show invisible characters. GitHub has already managed to add a warning to all projects where invisible characters are included. The third piece of advice directly for Python is to use only one-line comments (starts with \#). These comments are not vulnerable to Trojan source.
-
-\section{Pickle module}
-As mentioned in Chapter~\ref{sec:guidelines}, pickle is a Python module used for deserializing and serializing objects from or to a byte stream~\cite{pickle}. The problem with pickle is that it does not check the data sent through the byte stream. The object is usually encrypted by base64 encryption, so it is hard to check for malicious content.\\
-This exploit will be shown how does the pickle works. Then using pickle, we create an attack where the attacker steals data from the server. This application is created using Flask, another Python framework for web applications. For this example is more suitable Flask because it does not require such preparations as Django. Let us do it then.
-Pickle has many methods, but for this exploit are important these two and also override of method \emph{\_\_reduce\_\_()}:
-\begin{itemize}
-    \item \emph{dumps()} - this method returns a byte string of a given object
-    \item \emph{loads()} - this method deserializes byte data to object form
-    \item \emph{\_\_reduce\_\_()} - this method creates the initial object, which is then modified
-\end{itemize}
-These methods make it possible to create an object where the command can be hidden. The problem is that communication through request is encoded by base64 on the server. So using module base64, we can encrypt the byte string. The goal of this attack is to steal user data from the server. This is how the command its byte string and then pickle looks like:
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=Python]
-command = ('ls -a')
-return os.system, (command,)
-
-\x80\x04\x95 \x00\x00\x00\x00\x00\x00\x00\x8c\x05posix\x94\x8c\x06system\
-x94\x93\x94\x8c\x05ls -a\x94\x85\x94R\x94.'
-
-b'gASVIAAAAAAAAACMBXBvc2l4lIwGc3lzdGVtlJOUjAVscyAtYZSFlFKULg=='
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{Pickling and encrypting command.}
-\label{fig:pickle_attack}
-\end{figure}
-The last pickled string should be sent to the server, which executes the code and shows its content. It could be done by sending it over a cookie, as shown here~\cite{pickle_video}.\\
-This exploit is created with the help of a blog post by David Hamann~\cite{pickle_david}. The server looks in the request form and unpickles everything sent in item 'pickle='. When the attacker runs this command~\ref{fig:command_pickle}, the server responds with a list of files and folders~\ref{fig:pickle_answer}.\\
-Now it is easy to get the data from the server. If the root rights are needed, there is no problem executing the command line interface and gaining those rights. This example only shows how to get data. If it is rerun with this command \emph{'ls -a} \&\& \emph{cd data} \&\& \emph{ls -a} \&\& \emph{cat *.txt'}, the attacker tries to open files in folder data with a .txt ending. Fortunately for him, folder data contains file users.txt with all of the users logged. The attacker has all the usernames now and can continue with other types of attacks. SQL injection on the login form, for example.\\
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=bash]
-curl -d "pickled=gASVIAAAAAAAAACMBXBvc2l4lIwGc3lzdGVtlJ
-OUjAVscyAtYZSFlFKULg==" http://127.0.0.1:5000/pickle
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{Sending server the command.}
-\label{fig:command_pickle}
-\end{figure}
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{c}
-\begin{lstlisting}[language=bash]
-.  ..  app.py  data  env  __pycache__  venv
-127.0.0.1 - - [31/Mar/2022 10:56:37] "POST /pickle HTTP/1.1" 200 
-\end{lstlisting}
-\end{tabular}
-\end{center}    
-\caption{Response from the server.}
-\label{fig:pickle_answer}
-\end{figure}
-\subsection{Solution}
-Due to encryption and difficult data validation in the pickle module is very hard to distinguish between normal and malicious data. The only suitable solution or prevention for this problem is not to use a pickle at all. If there is no other possibility than using a pickle, try to use some encrypting algorithm such as HMAC for assuring data integrity. Standard base64 encoding is publicly known, and as shown in the example, it can be misused quite easily.
-
- {% endcomment %}
-
-
-
-<footer style="padding-top:30px;">
-  <div class="text-center p-3" style="background-color: #555; padding-top:30px; padding-bottom:30px; color:white;">
-      ©2022 BUT FIT
-  </div>
-</footer>
 {% endblock content %}

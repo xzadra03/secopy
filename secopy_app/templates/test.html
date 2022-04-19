@@ -359,7 +359,7 @@ brief: Template for user test
     <!-- Question 9 -->
     <table class="table table-bordered">
       <tr>
-        <th class="th_color">Question 9: Which of these methods was patched from Python 3.0 on wards?</th>
+        <th class="th_color">Question 9: Which of these methods was patched from Python 3.0 onwards?</th>
       </tr>
     </table>
     <form style="padding-bottom:30px;">
@@ -647,21 +647,21 @@ brief: Template for user test
       <div class="row">
         <div class="col-xs-12 col-sm-6">
           <input type="radio" id="sql_inj_1" name="sql_inj" value="a">
-          <label for="sql_inj_1">5</label>
+          <label for="sql_inj_1">27</label>
         </div>
         <div class="col-xs-12 col-sm-6">
           <input type="radio" id="sql_inj_2" name="sql_inj" value="b">
-          <label for="sql_inj_2">9</label>
+          <label for="sql_inj_2">29</label>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12 col-sm-6">
           <input type="radio" id="sql_inj_3" name="sql_inj" value="c">
-          <label class="right" for="sql_inj_3">7</label>
+          <label class="right" for="sql_inj_3">31</label>
         </div>
         <div class="col-xs-12 col-sm-6">
           <input type="radio" id="sql_inj_4" name="sql_inj" value="d">
-          <label for="sql_inj_4">10</label>
+          <label for="sql_inj_4">33</label>
         </div>
       </div>
       <div class="row">
@@ -672,7 +672,7 @@ brief: Template for user test
       </div>
     </form>
     <p style="background-color:#eeeeee; border:1px solid black; padding:20px;" class="collapse why">
-        It is line 7, where the malicious SQL query is being created. Line 9 only executes the already
+        It is line 31, where the malicious SQL query is being created. Line 32 only executes the already
         malicious query.
     </p>
 
@@ -729,7 +729,7 @@ brief: Template for user test
       <div class="row">
         <div class="col-12 padding_radio">
           <input type="radio" id="pickle_question_1" name="pickle_question" value="a">
-          <label class="right" for="pickle_question_1">Do not unpickle (deserialize) untrusted data.</label>
+          <label for="pickle_question_1">Do not unpickle (deserialize) untrusted data.</label>
         </div>
         <div class="col-12 padding_radio">
           <input type="radio" id="pickle_question_2" name="pickle_question" value="b">
@@ -739,7 +739,7 @@ brief: Template for user test
       <div class="row">
         <div class="col-12 padding_radio">
           <input type="radio" id="pickle_question_3" name="pickle_question" value="c">
-          <label for="pickle_question_3">There is no precaution. Do not use pickle module at all.</label>
+          <label class="right" for="pickle_question_3">There is no precaution. Do not use pickle module at all.</label>
         </div>
         <div class="col-12 padding_radio">
           <input type="radio" id="pickle_question_4" name="pickle_question" value="d">
@@ -754,10 +754,8 @@ brief: Template for user test
       </div>
     </form>
     <p style="background-color:#eeeeee; border:1px solid black; padding:20px;" class="collapse why">
-        The most important rule, which is even on official pickle module website is to do not unpickle
-        untrusted data. The pickle module is sometimes very useful, so not using is not an valid option.
-        PUT request does not have anything in common with this topic and validating data is good, but
-        data coming to pickle are usually encrypted, so it is hard to validate them.
+        The pickle module can be useful, but it is more dangerous as it should be, so please do not use
+        pickle module at all. 
     </p>
 
     <!-- Question 19 -->
@@ -810,7 +808,7 @@ brief: Template for user test
         <th class="th_color">Question 20: What does this line of code do?</th>
       </tr>
       <tr>
-        <td class="text-center"><img src="../static/images/bad_comment.png"></td>
+        <td class="text-center"><img style="width:100%;" src="../static/images/bad_comment.png"></td>
       </tr>
     </table>
     <form style="padding-bottom:30px;">
@@ -848,7 +846,7 @@ brief: Template for user test
     </p>
 
     {% comment %} when clicked on submit, points show up and the two buttons refresh and see right answers {% endcomment %}
-    <div style="width:100%; text-align:center;">
+    <div style="width:100%; text-align:center; padding-bottom:30px;">
         <form>
             <input data-toggle="collapse" data-target="#get_points" class="btn btn-dark" type="button" onclick="get_points()" value="Submit" style="background-color:#777; color:white;">
         </form>
@@ -859,13 +857,4 @@ brief: Template for user test
         </div>
     </div>
 </div>
-{% comment %} Two formatting divs from base.html {% endcomment %}
-</div>
-</div>
-
-<footer style="padding-top:30px;">
-  <div class="text-center p-3" style="background-color: #555; padding-top:30px; padding-bottom:30px; color:white;">
-      ©2022 BUT FIT
-  </div>
-</footer>
 {% endblock content %}
